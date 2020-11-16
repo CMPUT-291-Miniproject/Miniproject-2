@@ -38,8 +38,8 @@ class Terminal:
 		"""
 		print(string.center(self.__screenSize__))		
 	
-	def getDBName(self):
+	def getPort(self):
 		"""
-		Grabs the dbName assuming it is the first argument given in the command line on start
+		Grabs the port assuming it is the first argument given in the command line on start
 		"""
 		return sys.argv[1]		
