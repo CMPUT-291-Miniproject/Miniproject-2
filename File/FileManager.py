@@ -1,15 +1,15 @@
 class FileManager:
 	READ_CONSTANT = "r"	
 
-	def openRead(fileName):
+	def readJsonFile(fileName):
 		try:
 			managedFile = open(fileName, FileManager.READ_CONSTANT)
 		except OSError as OS:
 			print("File does not exist!")
 		else:
-			return managedFile
-
+			fileContent = managedFile.read()
+			return fileContent
 
 if __name__ == "__main__":
-	tagFile = FileManager.openRead("Tags.json")
-	print(tagFile)
+	jsonDict = FileManager.readJsonFile("Tags.json")
+	print(jsonDict)
