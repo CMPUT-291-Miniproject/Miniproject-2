@@ -8,26 +8,16 @@ class Terminal:
 
 	Terminal is a module which other modules can use to perform actions
 	on the operating systems terminal.
-	"""	
-	def __init__(self):
-		"""
-		Creates an instance of LoginScreen, which is the UI interface for logging into the program.
-		
-		Parameters:
-			Terminal: 
-				Terminal object. Used for extra console commands, like clearing the screen and printing to the center of it.
-			
-		Returns: N/A
-		"""
-		self.__screenSize__ = shutil.get_terminal_size().columns
+	"""
+	screenSize = shutil.get_terminal_size().columns
 	
-	def clear(self):
+	def clear():
 		"""
 		Clears the OS terminal
 		"""
 		system("clear")
 	
-	def printCenter(self, string):
+	def printCenter(string):
 		"""
 		Prints a string at the center of the screen.
 
@@ -36,11 +26,17 @@ class Terminal:
 				A String object which contains the string to be printed at the center of the screen
 
 		"""
-		print(string.center(self.__screenSize__))		
+		print(string.center(Terminal.screenSize))		
 	
-	def getPort(self):
+	def getPort():
 		"""
 		Grabs the port assuming it is the first argument given in the command line on start
 		"""
 		return sys.argv[1]		
-	
+
+if __name__ == "__main__":
+	Terminal.clear()
+	Terminal.printCenter("Hello World")
+	Terminal.getPort()
+	input("Press enter to continue: ")
+	Terminal.clear()	
