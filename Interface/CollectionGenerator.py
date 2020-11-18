@@ -1,9 +1,8 @@
-
-from File.FileManager import FileManager
 from Terminal import Terminal
 
+import os.path
+import json
 import pymongo
-
 
 class CollectionGenerator:
 	
@@ -14,7 +13,6 @@ class CollectionGenerator:
 		CollectionGenerator.generateTagCollection()
 		CollectionGenerator.generatePostCollection()
 		CollectionGenerator.generateVoteCollection()
-
 
 	def generateTagCollection():
 		tagDict = FileManager.readJsonFile("Tags.json")
@@ -37,13 +35,12 @@ class CollectionGenerator:
 		
 		collection.insert_many(batchInsert)
 		
-import os.path
-import json
+
 class FileManager:
 	READ_CONSTANT = "r"	
 	
 	def readJsonFile(fileName):
-		directory = os.path.dirname(__file__) + "/../../" + fileName		#Directory where file is contained
+		directory = os.path.dirname(__file__) + "../" + fileName		#Directory where file is contained
 
 		if os.path.splitext(directory)[1] != ".json":				#Raise error if file is of wrong type
 			raise ValueError("Wrong File Type")
@@ -52,15 +49,19 @@ class FileManager:
 		fileContent = json.loads(managedFile.read())					#
 		return fileContent
 
-if __name__ == "__main__":
-	try:
-		invalid = FileManager.readJsonFile("Tag.txt")
-	except ValueError as e:
-		print(e)
-	jsonDict = FileManager.readJsonFile("Tags.json")
-	for row in jsonDict["tags"]["row"]:
-		print(row)
 
 if __name__ == "__main__":
+	#Test FileManager Class
+	try:
+		f = FileManager
+		invalid = f.readJsonFile("Tag.txt")
+	except ValueError as e:
+		print(e)
+	jsonDict = f.readJsonFile("Tags.json")
+	#for row in jsonDict["tags"]["row"]:
+	#	print(row)
+	
+	#Test CollectionGenerator Class
 	c = CollectionGenerator
 	c.generateCollections()
+
