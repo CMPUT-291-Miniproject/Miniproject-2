@@ -63,7 +63,7 @@ class SearchQuestionMenu():
 			if key is not None:
 				self.__menuItems__.append(SearchForQuestionsScreen.MenuOption(PostID=key, Post=posts[key]))
 
-	def printScreen(self):
+	def printMenu(self):
 		maxTitleLength = self.getMaxTitleLength()
 		for i,item in enumerate(self.__menuItems__):
 			titleLenDiff = len(item.Post['Title'])
@@ -76,7 +76,25 @@ class SearchQuestionMenu():
 			stringToPrint += str(item.Post['AnswerCount']) 
 
 			print(stringToPrint)
-		input("Enter selection: ")
+	
+	def printScreen(self):
+		invalidInput = True
+		while invalidInput:
+			self.printMenu()
+			userInput = input("Enter Selection: ")
+			try:
+				userInput = int(userInput)
+				if (userInput < 1 or userInput > len(self.__menuItems__)):
+					print("Input is out of range")
+				else:
+					validInput = False
+			except Exception:
+				print("Entered input is invalid!")
+			finally:
+				input("Press Enter to Continue: ")
+		userInput += -1
+
+		print(self.__menuItems__[userInput])
 
 
 	def getMaxTitleLength(self):
