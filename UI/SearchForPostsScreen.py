@@ -71,6 +71,7 @@ class SearchQuestionMenu():
 
 			stringToPrint += str(i) + ". "
 			stringToPrint += item.Post['Title'] + " " + "|"
+			stringToPrint += item.Post['CreationDate'] + "|"
 			stringToPrint += str(item.Post['Score']) + "   |"
 			stringToPrint += str(item.Post['AnswerCount']) 
 
