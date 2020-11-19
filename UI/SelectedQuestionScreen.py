@@ -20,4 +20,5 @@ if __name__ == "__main__":
 
 	sScreen = SearchForQuestionsScreen
 	post = sScreen.printScreen()
-	SelectedQuestionScreen.printScreen(post)
+	sq = SelectedQuestionScreen(post)
+	sq.printScreen()
