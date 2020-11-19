@@ -10,16 +10,16 @@ class SearchForQuestionsScreen:
 	search screen
 	"""
 
-	def printTitleKeyword(self):
+	def printTitleKeyword():
 		"""
 		Prints identifying information telling the user what screen
 		they are on and information about how to give keywords
 		"""
-		self.__terminal__.clear()
-		self.__terminal__.printCenter("Search for Posts")
-		self.__terminal__.printCenter("Enter terms delimited by commas")
-		
-	def getParsedKeywords(self):
+		Terminal.clear()
+		Terminal.printCenter("Search for Posts")
+		Terminal.printCenter("Enter terms delimited by commas")
+	
+	def getParsedKeywords():
 		"""
 		Gets input from user and parses it
 		into a list of terms that can be used to query the database
@@ -32,37 +32,26 @@ class SearchForQuestionsScreen:
 		for i, string in enumerate(searchTermList):
 			searchTermList[i] = string.strip()
 		return searchTermList
+	
+	def printScreenKeyword():
+		SearchForQuestionsScreen.printTitleKeyword()
+		searchKeys = searchForQuestionsScreen.getParsedKeywords()
+		return SearchForQuestions.getQuestions(searchKeys)
+
+	def printMenuScreen():
 
 class SearchForQuestions:
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 	db = client[Terminal.getDBName()]
 
 	def getQuestions(searchKeys):
-		postsMatchingTitle = SearchForQuestions.getMatchingTitle(searchKeys)
-		postsMatchingBody = SearchForQuestions.getMatchingBody(searchKeys)
-		postsMatchingTag = SearchForQuestions.getMatchingTag(searchKeys)
+		posts = {}
+		posts = SearchForQuestions.getMatchingTitle(searchKeys, posts)
+		posts = SearchForQuestions.getMatchingBody(searchKeys, posts)
+		posts = SearchForQuestions.getMatchingTag(searchKeys, posts)
+		return posts
 
-		seen = []
-		posts = []
-		for post in postsMatchingTitle:
-			print(post['Id'])
-			if post['Id'] not in seen:
-				seen.append(post['Id'])
-				posts.append(post)
-		for post in postsMatchingBody:
-			print(post['Id'])
-			if post['Id'] not in seen:
-				seen.append(post['Id'])
-				posts.append(post)
-		for post in postsMatchingTag:
-			print(post['Id'])
-			if post['Id'] not in seen:
-				seen.append(post['Id'])
-				posts.append(post)
-		return seen
-
-	def getMatchingTitle(searchKeys):
-		postsMatchingTitle = []
+	def getMatchingTitle(searchKeys, posts):
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
@@ -73,12 +62,11 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				postsMatchingTitle.append(result)
+				posts[result['Id']] = result
 
-		return postsMatchingTitle
+		return posts
 
-	def getMatchingBody(searchKeys):
-		postsMatchingBody = []
+	def getMatchingBody(searchKeys, posts):
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
@@ -89,12 +77,11 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				postsMatchingBody.append(result)
+				posts[result['Id']] = result
 		
-		return postsMatchingBody 
+		return posts
 
-	def getMatchingTag(searchKeys):
-		postsMatchingTag = []
+	def getMatchingTag(searchKeys, posts):
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
@@ -105,16 +92,19 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				postsMatchingTag.append(result)
+				posts[result['Id']] = result
 
-		return postsMatchingTag
+		return posts
 			
 
 
 			
 if __name__ == "__main__":
+	sScreen = SearchForQuestionsScreen
+	s = SearchForQuestions
 	#SearchForQuestions.getMatchingTitle(['What'])
 	#SearchForQuestions.getMatchingBody(['The'])
 	#SearchForQuestions.getMatchingTag(['mac'])
-
-	print(SearchForQuestions.getQuestions(['I have Google Chrome']))
+	sScreen.printTitleKeyword()
+	searchWords = sScreen.getParsedKeywords()
+	print(SearchForQuestions.getQuestions(searchWords))
