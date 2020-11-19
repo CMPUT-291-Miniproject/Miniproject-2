@@ -57,7 +57,7 @@ class SearchQuestionMenu():
 	def __init__(self, posts):
 		self.__menuItems__ = []
 		#self.__maxTitleLength__ == self.getMaxTitleLength()	Might make list look better to align
-		self.fillMenu()
+		self.fillMenu(posts)
 
 	def fillMenu(self, posts):
 		for key in posts:
