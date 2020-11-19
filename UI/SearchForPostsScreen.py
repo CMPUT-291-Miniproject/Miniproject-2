@@ -39,13 +39,13 @@ class SearchForQuestions:
 	db = client[Terminal.getDBName()]
 
 	def getQuestions(searchKeys):
-		posts = [None]*3
+		searchTypes = [[],[],[]]
 
-		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle(searchKeys), args = (searchKeys, posts))
-		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody(searchKeys), args = (searchKeys, posts))
-		tagProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTag(searchKeys), args = (searchKeys, posts))
-(target=foo, args=('world!', results, i))
-		Processes = [titleProcess, bodyProcess, tagProcess]
+		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle, args = (searchKeys, searchTypes[0]))
+		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody, args = (searchKeys, searchTypes[1]))
+		tagProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTag, args = (searchKeys, searchTypes[2]))
+
+		processes = [titleProcess, bodyProcess, tagProcess]
 		for process in processes:
 			process.start()
 		for process in processes:
@@ -53,24 +53,16 @@ class SearchForQuestions:
 
 		seen = []
 		posts = []
-		for post in postsMatchingTitle:
-			print(post['Id'])
-			if post['Id'] not in seen:
-				seen.append(post['Id'])
-				posts.append(post)
-		for post in postsMatchingBody:
-			print(post['Id'])
-			if post['Id'] not in seen:
-				seen.append(post['Id'])
-				posts.append(post)
-		for post in postsMatchingTag:
-			print(post['Id'])
-			if post['Id'] not in seen:
-				seen.append(post['Id'])
-				posts.append(post)
+		for searchType in searchTypes:
+			print(searchType)
+			for post in searchType:
+				print(post['Id'])
+				if post['Id'] not in seen:
+					seen.append(post['Id'])
+					posts.append(post)
 		return seen
 
-	def getMatchingTitle(searchKeys):
+	def getMatchingTitle(searchKeys, posts):
 		postsMatchingTitle = []
 		collection = SearchForQuestions.db["Posts"]
 
@@ -84,9 +76,9 @@ class SearchForQuestions:
 			for result in queryResults:
 				postsMatchingTitle.append(result)
 
-		post[0] = postsMatchingTitle
+		posts = postsMatchingTitle
 
-	def getMatchingBody(searchKeys):
+	def getMatchingBody(searchKeys, posts):
 		postsMatchingBody = []
 		collection = SearchForQuestions.db["Posts"]
 
@@ -100,7 +92,7 @@ class SearchForQuestions:
 			for result in queryResults:
 				postsMatchingBody.append(result)
 		
-		post[1] = postsMatchingBody
+		posts = postsMatchingBody
 
 	def getMatchingTag(searchKeys, posts):
 		postsMatchingTag = []
@@ -116,7 +108,7 @@ class SearchForQuestions:
 			for result in queryResults:
 				postsMatchingTag.append(result)
 
-		posts[2] = postsMatchingTag
+		posts = postsMatchingTag
 			
 
 
