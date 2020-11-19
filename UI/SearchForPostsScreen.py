@@ -35,9 +35,6 @@ class SearchForQuestionsScreen:
 		return searchTermList
 
 class SearchForQuestions:
-	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
-	db = client[Terminal.getDBName()]
-
 	def getQuestions(searchKeys):
 		searchTypes = [[],[],[]]
 
@@ -64,7 +61,8 @@ class SearchForQuestions:
 
 	def getMatchingTitle(searchKeys, posts):
 		postsMatchingTitle = []
-		collection = SearchForQuestions.db["Posts"]
+		db = SearchForQuestions.connectToDB()
+		collection = db["Posts"]
 
 		for keyWord in searchKeys:
 			searchQuery = 	{'$and' : 
@@ -80,7 +78,8 @@ class SearchForQuestions:
 
 	def getMatchingBody(searchKeys, posts):
 		postsMatchingBody = []
-		collection = SearchForQuestions.db["Posts"]
+		db = SearchForQuestions.connectToDB()
+		collection = db["Posts"]
 
 		for keyWord in searchKeys:
 			searchQuery = 	{'$and' : 
@@ -96,7 +95,8 @@ class SearchForQuestions:
 
 	def getMatchingTag(searchKeys, posts):
 		postsMatchingTag = []
-		collection = SearchForQuestions.db["Posts"]
+		db = SearchForQuestions.connectToDB()
+		collection = db["Posts"]
 
 		for keyWord in searchKeys:
 			searchQuery = 	{'$and' : 
@@ -109,6 +109,11 @@ class SearchForQuestions:
 				postsMatchingTag.append(result)
 
 		posts = postsMatchingTag
+
+	def connectToDB():
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
+		db = client[Terminal.getDBName()]
+		return db
 			
 
 
