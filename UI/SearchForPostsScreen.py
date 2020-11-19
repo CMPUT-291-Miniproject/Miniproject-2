@@ -44,7 +44,18 @@ class SearchForQuestions:
 
 		seen = []
 		posts = []
-		for post in allPosts:
+		for post in postsMatchingTitle:
+			print(post['Id'])
+			if post['Id'] not in seen:
+				seen.append(post['Id'])
+				posts.append(post)
+		for post in postsMatchingBody:
+			print(post['Id'])
+			if post['Id'] not in seen:
+				seen.append(post['Id'])
+				posts.append(post)
+		for post in postsMatchingTag:
+			print(post['Id'])
 			if post['Id'] not in seen:
 				seen.append(post['Id'])
 				posts.append(post)
@@ -106,4 +117,4 @@ if __name__ == "__main__":
 	#SearchForQuestions.getMatchingBody(['The'])
 	#SearchForQuestions.getMatchingTag(['mac'])
 
-	print(SearchForQuestions.getQuestions(['mac']))
+	print(SearchForQuestions.getQuestions(['I have Google Chrome']))
