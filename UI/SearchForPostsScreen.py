@@ -42,6 +42,14 @@ class SearchForQuestions:
 		postsMatchingBody = SearchForQuestions.getMatchingBody(searchKeys)
 		postsMatchingTag = SearchForQuestions.getMatchingTag(searchKeys)
 
+		seen = []
+		posts = []
+		for post in allPosts:
+			if post['Id'] not in seen:
+				seen.append(post['Id'])
+				posts.append(post)
+		return seen
+
 	def getMatchingTitle(searchKeys):
 		postsMatchingTitle = []
 		collection = SearchForQuestions.db["Posts"]
@@ -54,7 +62,9 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				print(result)
+				postsMatchingTitle.append(result)
+
+		return postsMatchingTitle
 
 	def getMatchingBody(searchKeys):
 		postsMatchingBody = []
@@ -68,10 +78,12 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				print(result)
+				postsMatchingBody.append(result)
+		
+		return postsMatchingBody 
 
 	def getMatchingTag(searchKeys):
-		postsWithTag = []
+		postsMatchingTag = []
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
@@ -82,12 +94,17 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				print(result)
+				postsMatchingTag.append(result)
+
+		return postsMatchingTag
 			
 
 
 			
 if __name__ == "__main__":
-	SearchForQuestions.getMatchingTitle(['What'])
+	#SearchForQuestions.getMatchingTitle(['What'])
 	#SearchForQuestions.getMatchingBody(['The'])
 	#SearchForQuestions.getMatchingTag(['mac'])
+
+	print(SearchForQuestions.getQuestions(['mac']))
+
