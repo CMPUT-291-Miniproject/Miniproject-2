@@ -66,7 +66,7 @@ class SearchQuestionMenu():
 	def printScreen(self):
 		maxTitleLength = self.getMaxTitleLength()
 		for i,item in enumerate(self.__menuItems__):
-			titleLenDiff = len(item.Post['title'])
+			titleLenDiff = len(item.Post['Title'])
 			stringToPrint = ""
 
 			stringToPrint += str(i) + ". "
