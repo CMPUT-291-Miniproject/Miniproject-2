@@ -62,7 +62,7 @@ class SearchQuestionMenu():
 	def fillMenu(self, posts):
 		for key in posts:
 			if key is not None:
-				self.__menuItems__.append(SearchForQuestionsScreen.MenuOption(PostID=key, post=posts[key]))
+				self.__menuItems__.append(SearchForQuestionsScreen.MenuOption(PostID=key, Post=posts[key]))
 
 	def printScreen(self):
 		for i,item in enumerate(self.__menuItems__):
