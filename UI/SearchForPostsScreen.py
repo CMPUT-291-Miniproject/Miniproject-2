@@ -1,4 +1,5 @@
 import pymongo
+import threading
 from Interface.Terminal import Terminal
 
 class SearchForQuestionsScreen:
@@ -38,9 +39,14 @@ class SearchForQuestions:
 	db = client[Terminal.getDBName()]
 
 	def getQuestions(searchKeys):
-		postsMatchingTitle = SearchForQuestions.getMatchingTitle(searchKeys)
-		postsMatchingBody = SearchForQuestions.getMatchingBody(searchKeys)
-		postsMatchingTag = SearchForQuestions.getMatchingTag(searchKeys)
+		titleThread = threading.Thread(target = SearchForQuestions.getMatchingTitle(searchKeys))
+		bodyThread = threading.Thread(target = SearchForQuestions.getMatchingBody(searchKeys))
+		tagThread = threading.Thread(target = SearchForQuestions.getMatchingTag(searchKeys))
+
+		threads = [titleThread, bodyThread, tagThread]
+		
+		for thread in threads:
+			thread.join()
 
 		seen = []
 		posts = []
