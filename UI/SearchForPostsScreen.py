@@ -88,6 +88,6 @@ class SearchForQuestions:
 
 			
 if __name__ == "__main__":
-	SearchForQuestions.getMatchingTitle(['What'])
+	#SearchForQuestions.getMatchingTitle(['What'])
 	#SearchForQuestions.getMatchingBody(['The'])
-	#SearchForQuestions.getMatchingTag(['mac'])
+	SearchForQuestions.getMatchingTag(['mac'])
