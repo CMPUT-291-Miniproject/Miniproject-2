@@ -82,6 +82,8 @@ class SearchQuestionMenu():
 		while invalidInput:
 			self.printMenu()
 			userInput = input("Enter Selection: ")
+			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
+				return None
 			try:
 				userInput = int(userInput)
 				if (userInput < 1 or userInput > len(self.__menuItems__)):
@@ -94,7 +96,19 @@ class SearchQuestionMenu():
 				input("Press Enter to Continue: ")
 		userInput += -1
 
-		print(self.__menuItems__[userInput])
+		selectedPost = self.__menuItems__[userInput]
+
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
+		db = client[Terminal.getDBName()]
+		collection = SearchForQuestions.db["Posts"]
+
+		updatedViewCount = selectedPost['ViewCount'] + 1
+		updateQuery = { '$set' : { 'ViewCount' : updatedViewCount } }
+
+		collection.update_one(updateQuery)
+
+
+		return selectedPost
 
 
 	def getMaxTitleLength(self):
