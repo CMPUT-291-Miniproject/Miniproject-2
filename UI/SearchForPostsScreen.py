@@ -1,8 +1,7 @@
 import pymongo
 from Interface.Terminal import Terminal
-from Interface.Menu import Menu
+
 class SearchForQuestionsScreen:
-	menu = Menu()
 	"""
 	A screen which handles searching for posts and the processes
 	associated with it.
@@ -39,11 +38,6 @@ class SearchForQuestionsScreen:
 		searchKeys = searchForQuestionsScreen.getParsedKeywords()
 		return SearchForQuestions.getQuestions(searchKeys)
 
-	def printMenuScreen(posts):
-		for post in posts:
-			if post is not None:
-				menuOption = post[key]['Title'] + "---" + post[key]['CreationDate'] + "---" + post[key]['Score'] + "---" + post[key]['AnswerCount']
-				SearchForQuestionsScreen.menu.addItem(menuOption)
 
 class SearchForQuestions:
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
