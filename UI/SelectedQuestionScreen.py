@@ -2,17 +2,14 @@ from Terminal import Terminal
 
 class SelectedQuestionScreen:
 
-	def __init__(self, post):
-		self.__post__ = post
-
-	def printTitle(self):
-		Terminal.clear()
-		for key in self.__post__:
+	def printTitle(post):
+		Terminal.clear
+		for key in post:
 			if (key is not None):
-				Terminal.printCenter(key + ": " + self.__post__[key] + "\n\n")
+				Terminal.printCenter(key + ": " + post[key] + "\n\n")
 
-	def printScreen(self):
-		SelectedQuestionScreen()
+	def printScreen(post):
+		SelectedQuestionScreen.printTitle(post)
 
 
 if __name__ == "__main__":
@@ -20,5 +17,4 @@ if __name__ == "__main__":
 
 	sScreen = SearchForQuestionsScreen
 	post = sScreen.printScreen()
-	sq = SelectedQuestionScreen(post)
-	sq.printScreen()
+	SelectedQuestionScreen.printScreen(post)
