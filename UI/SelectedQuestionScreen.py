@@ -3,6 +3,7 @@ from Terminal import Terminal
 class SelectedQuestionScreen:
 
 	def printTitle(post):
+		Terminal.clear()
 		for key in post:
 			if (key is not None):
 				Terminal.printCenter(key + ": " + post[key] + "\n\n")
