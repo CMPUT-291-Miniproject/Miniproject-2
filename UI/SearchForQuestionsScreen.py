@@ -50,8 +50,8 @@ class SearchForQuestionsScreen:
 
 	def printScreen():
 		posts = SearchForQuestionsScreen.printScreenKeyword()
-		SearchForQuestionsScreen.printScreenMenu(posts)
-
+		post = SearchForQuestionsScreen.printScreenMenu(posts)
+		return post
 
 class SearchQuestionMenu():
 	def __init__(self, posts):
@@ -73,7 +73,7 @@ class SearchQuestionMenu():
 			stringToPrint += item.Post['Title'] + " " + "|"
 			stringToPrint += item.Post['CreationDate'] + "|"
 			stringToPrint += str(item.Post['Score']) + "   |"
-			stringToPrint += str(item.Post['AnswerCount']) 
+			stringToPrint += str(item.Post['AnswerCount']) + "\n"
 
 			print(stringToPrint)
 	
