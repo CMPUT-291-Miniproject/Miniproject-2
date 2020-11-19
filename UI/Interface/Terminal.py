@@ -32,7 +32,10 @@ class Terminal:
 		"""
 		Grabs the port assuming it is the first argument given in the command line on start
 		"""
-		return sys.argv[1]		
+		return sys.argv[1]
+
+	def getDBName():
+		return "291db"
 
 if __name__ == "__main__":
 	Terminal.clear()

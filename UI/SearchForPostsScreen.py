@@ -1,0 +1,78 @@
+import pymongo
+from Interface.Terminal import Terminal
+
+class SearchForQuestionsScreen:
+	"""
+	A screen which handles searching for posts and the processes
+	associated with it.
+
+	This module is responsible for providing the UI of the post
+	search screen
+	"""
+
+	def printTitleKeyword(self):
+		"""
+		Prints identifying information telling the user what screen
+		they are on and information about how to give keywords
+		"""
+		self.__terminal__.clear()
+		self.__terminal__.printCenter("Search for Posts")
+		self.__terminal__.printCenter("Enter terms delimited by commas")
+		
+	def getParsedKeywords(self):
+		"""
+		Gets input from user and parses it
+		into a list of terms that can be used to query the database
+
+		Returns:
+			A List of strings that can be used to query the database
+		"""
+		userInput = input("Enter search term(s): ")
+		searchTermList = userInput.split(",")
+		for i, string in enumerate(searchTermList):
+			searchTermList[i] = string.strip()
+		return searchTermList
+
+class SearchForQuestions:
+	client = pymongo.MongoClient('localhost', Terminal.getPort())
+	db = client[Terminal.getDBName()]
+
+	def getQuestions(searchKeys):
+		postsMatchingTitle = getMatchingTitle(searchKeys)
+		postsMatchingBody = getMatchingBody(searchKeys)
+		postsMatchingTag = getMatchingTag(searchKeys)
+
+			db.Posts.find({'Body':{'$regex':'THE', '$options':'i'}})
+			{ 'Title':{'$regex':keyword, '$options':'i'}}
+			
+
+			{ $or: [ { 'Title':{'$regex':keyword, '$options':'i'} }, { <expression2> }, ... , { <expressionN> } ] }
+			#{'Tag':{'$regex':keyword, '$options':'i'}}
+
+	def getMatchingTitle(searchKeys):
+		postsMatchingTitle = []
+
+		for keyWord in searchKeys:
+			queryResult = db.Posts.find({ 'Title' : { '$regex' : keyWord, '$options' : 'i' } })
+			print(queryResult)
+
+	def getMatchingBody(searchKeys):
+		postsMatchingBody = []
+
+		for keyWord in searchKeys:
+			queryResult = db.Posts.find({ 'Body' : { '$regex' : keyWord, '$options' : 'i' } })
+			print(queryResult)
+
+	def getMatchingTag(searchKeys):
+		postsMatchingTag = []
+
+		for keyWord in searchKeys:
+			for item in db.Tag.find({ 'TagName' : { '$regex' : keyWord, '$options' : 'i' } }):
+				print(item)
+
+
+
+
+			
+if __name__ == "__main__":
+
