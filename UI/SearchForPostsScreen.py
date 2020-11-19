@@ -102,10 +102,10 @@ class SearchQuestionMenu():
 		db = client[Terminal.getDBName()]
 		collection = SearchForQuestions.db["Posts"]
 
-		updatedViewCount = selectedPost['ViewCount'] + 1
+		updatedViewCount = selectedPost.Post['ViewCount'] + 1
 		updateQuery = { '$set' : { 'ViewCount' : updatedViewCount } }
 
-		collection.update_one(updateQuery)
+		collection.update_one(selectedPost.Post, updateQuery)
 
 
 		return selectedPost
