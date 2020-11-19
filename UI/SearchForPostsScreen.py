@@ -1,5 +1,6 @@
 import pymongo
-from Interface.Terminal import Terminal
+from Terminal import Terminal
+import collections
 
 class SearchForQuestionsScreen:
 	"""
@@ -9,6 +10,8 @@ class SearchForQuestionsScreen:
 	This module is responsible for providing the UI of the post
 	search screen
 	"""
+
+	MenuOption = collections.namedtuple.('Post', 'PostID Post' )
 
 	def printTitleKeyword():
 		"""
@@ -38,6 +41,27 @@ class SearchForQuestionsScreen:
 		searchKeys = searchForQuestionsScreen.getParsedKeywords()
 		return SearchForQuestions.getQuestions(searchKeys)
 
+	def printTitleMenu():
+		Terminal.printCenter("ENTER ACTUAL TEXT LATER")
+
+	def printScreenMenu():
+		for posts 
+
+
+class SearchQuestionMenu():
+	def __init__(self, posts):
+		self.__menuItems__ = []
+		self.__maxTitleLength__ == None
+		self.fillMenu()
+
+	def fillMenu(self, posts):
+		for key in posts:
+			if key is not None:
+				self.__menuItems__.append(MenuOption(PostID=key, post=posts[key])
+
+	def printScreen(self):
+		for i,item in enumerate(self.__menuItems__):
+			print(i + ". " + item.post['Title'] + "|")
 
 class SearchForQuestions:
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
@@ -94,7 +118,8 @@ class SearchForQuestions:
 				posts[result['Id']] = result
 
 		return posts
-			
+
+
 
 
 			
