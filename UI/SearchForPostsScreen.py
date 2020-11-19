@@ -66,7 +66,7 @@ class SearchQuestionMenu():
 
 	def printScreen(self):
 		for i,item in enumerate(self.__menuItems__):
-			print(string(i) + ". " + item.post['Title'] + "|" + item.post['CreationDate'] + "|" + item.post['Score'] + "|" + item.post['AnswerCount'])
+			print(str(i) + ". " + item.post['Title'] + "|" + item.post['CreationDate'] + "|" + str(item.post['Score']) + "|" + str(item.post['AnswerCount']))
 		input("Enter selection: ")
 
 class SearchForQuestions:
