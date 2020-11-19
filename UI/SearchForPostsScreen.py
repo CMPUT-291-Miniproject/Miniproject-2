@@ -49,7 +49,7 @@ class SearchForQuestionsScreen:
 		searchQuestionMenu.printScreen()
 
 	def printScreen():
-		posts = SearchForQuestions.printScreenKeyword()
+		posts = SearchForQuestionsScreen.printScreenKeyword()
 		SearchForQuestions.printScreenMenu(posts)
 
 
