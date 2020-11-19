@@ -44,14 +44,19 @@ class SearchForQuestionsScreen:
 	def printTitleMenu():
 		Terminal.printCenter("ENTER ACTUAL TEXT LATER")
 
-	def printScreenMenu():
-		for posts 
+	def printScreenMenu(posts):
+		searchQuestionMenu = SearchQuestionMenu(posts)
+		searchQuestionMenu.printScreen()
+
+	def printScreen():
+		posts = SearchForQuestions.printScreenKeyword()
+		SearchForQuestions.printScreenMenu(posts)
 
 
 class SearchQuestionMenu():
 	def __init__(self, posts):
 		self.__menuItems__ = []
-		self.__maxTitleLength__ == None
+		#self.__maxTitleLength__ == self.getMaxTitleLength()	Might make list look better to align
 		self.fillMenu()
 
 	def fillMenu(self, posts):
@@ -61,7 +66,8 @@ class SearchQuestionMenu():
 
 	def printScreen(self):
 		for i,item in enumerate(self.__menuItems__):
-			print(i + ". " + item.post['Title'] + "|")
+			print(i + ". " + item.post['Title'] + "|" + item.post['CreationDate'] + "|" + item.post['Score'] + item.post['AnswerCount'])
+		input("Enter selection: ")
 
 class SearchForQuestions:
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
