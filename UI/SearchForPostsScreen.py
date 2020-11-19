@@ -56,7 +56,6 @@ class SearchForQuestionsScreen:
 class SearchQuestionMenu():
 	def __init__(self, posts):
 		self.__menuItems__ = []
-		#self.__maxTitleLength__ == self.getMaxTitleLength()	Might make list look better to align
 		self.fillMenu(posts)
 
 	def fillMenu(self, posts):
@@ -65,9 +64,29 @@ class SearchQuestionMenu():
 				self.__menuItems__.append(SearchForQuestionsScreen.MenuOption(PostID=key, Post=posts[key]))
 
 	def printScreen(self):
+		maxTitleLength = self.getMaxTitleLength()
 		for i,item in enumerate(self.__menuItems__):
-			print(str(i) + ". " + item.Post['Title'] + "|" + item.Post['CreationDate'] + "|" + str(item.Post['Score']) + "|" + str(item.Post['AnswerCount']))
+			titleLenDiff = len(item.Post['title'])
+			stringToPrint = ""
+
+			stringToPrint += str(i) + ". "
+			stringToPrint += item.post['Title'] + " "* titleLenDiff + "|"
+			stringToPrint += str(item.Post['Score']) + "   |"
+			stringToPrint += str(item.Post['AnswerCount']) 
+
+			print(stringToPrint)
 		input("Enter selection: ")
+		
+
+	def getMaxTitleLength():
+		maxItemLength = 0
+		for item in self.__menuItems__:
+			temp = len(item.Post['Title'])
+			if temp > maxItemLength:
+				maxItemLength = temp
+		return maxItemLength
+
+		
 
 class SearchForQuestions:
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
