@@ -75,9 +75,9 @@ class SearchForQuestions:
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
-			searchQuery = 	{'$and'
+			searchQuery = 	{'$and' : 
 						[ { 'Tags' : { '$regex' : keyWord, '$options' : 'i' }},
-						{ 'PostTypeId' : '1' } ]
+						{ 'PostTypeId' : '1'} ]
 					}
 
 			queryResults = collection.find(searchQuery)
