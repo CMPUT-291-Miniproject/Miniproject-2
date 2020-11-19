@@ -87,7 +87,7 @@ class SearchQuestionMenu():
 				if (userInput < 1 or userInput > len(self.__menuItems__)):
 					print("Input is out of range")
 				else:
-					validInput = False
+					invalidInput = False
 			except Exception:
 				print("Entered input is invalid!")
 			finally:
