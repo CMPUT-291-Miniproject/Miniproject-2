@@ -36,7 +36,7 @@ class SearchForQuestionsScreen:
 
 class SearchForQuestions:
 	def getQuestions(searchKeys):
-		posts = {}
+		posts = multiprocessing.Queue()
 
 		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle, args = (searchKeys, posts))
 		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody, args = (searchKeys, posts))
@@ -48,16 +48,7 @@ class SearchForQuestions:
 		for process in processes:
 			process.join()
 
-		seen = []
-		posts = []
-		for searchType in searchTypes:
-			print(searchType)
-			for post in searchType:
-				print(post['Id'])
-				if post['Id'] not in seen:
-					seen.append(post['Id'])
-					posts.append(post)
-		return seen
+		print(posts)
 
 	def getMatchingTitle(searchKeys, posts):
 		postsMatchingTitle = []
@@ -72,8 +63,7 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts[result['Id']] = result
-		print(post[0])
+				posts.put(result)
 
 	def getMatchingBody(searchKeys, posts):
 		postsMatchingBody = []
@@ -88,7 +78,7 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts[result['Id']] = result
+				posts.put(result)
 
 	def getMatchingTag(searchKeys, posts):
 		postsMatchingTag = []
@@ -103,7 +93,7 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts[result['Id']] = result
+				posts.put(result)
 
 	def connectToDB():
 		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
