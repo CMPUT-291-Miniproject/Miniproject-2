@@ -34,27 +34,26 @@ class SearchForQuestionsScreen:
 		return searchTermList
 
 class SearchForQuestions:
-	client = pymongo.MongoClient('localhost', Terminal.getPort())
+	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 	db = client[Terminal.getDBName()]
 
 	def getQuestions(searchKeys):
-		postsMatchingTitle = getMatchingTitle(searchKeys)
-		postsMatchingBody = getMatchingBody(searchKeys)
-		postsMatchingTag = getMatchingTag(searchKeys)
-
-			db.Posts.find({'Body':{'$regex':'THE', '$options':'i'}})
-			{ 'Title':{'$regex':keyword, '$options':'i'}}
-			
-
-			{ $or: [ { 'Title':{'$regex':keyword, '$options':'i'} }, { <expression2> }, ... , { <expressionN> } ] }
-			#{'Tag':{'$regex':keyword, '$options':'i'}}
+		postsMatchingTitle = SearchForQuestions.getMatchingTitle(searchKeys)
+		postsMatchingBody = SearchForQuestions.getMatchingBody(searchKeys)
+		postsMatchingTag = SearchForQuestions.getMatchingTag(searchKeys)
 
 	def getMatchingTitle(searchKeys):
 		postsMatchingTitle = []
 
 		for keyWord in searchKeys:
-			queryResult = db.Posts.find({ 'Title' : { '$regex' : keyWord, '$options' : 'i' } })
-			print(queryResult)
+			collection = SearchForQuestions.db["Posts"]
+			searchQuery = 	{'$and' : 
+						[ { 'Title' : { '$regex' : keyWord, '$options' : 'i' }},
+						{ 'PostTypeId' : '1'} ]
+					}
+			queryResults = collection.find(searchQuery)
+			for result in queryResults:
+				print(result)
 
 	def getMatchingBody(searchKeys):
 		postsMatchingBody = []
@@ -71,8 +70,8 @@ class SearchForQuestions:
 				print(item)
 
 
-
-
 			
 if __name__ == "__main__":
-
+	SearchForQuestions.getMatchingTitle(['What'])
+	#SearchForQuestions.getMatchingBody("The")
+	#SearchForQuestions.getMatchingTag("hardware")
