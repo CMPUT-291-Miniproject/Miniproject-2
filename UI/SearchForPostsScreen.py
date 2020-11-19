@@ -69,7 +69,7 @@ class SearchQuestionMenu():
 			titleLenDiff = len(item.Post['Title'])
 			stringToPrint = ""
 
-			stringToPrint += str(i) + ". "
+			stringToPrint += str(i+1) + ". "
 			stringToPrint += item.Post['Title'] + " " + "|"
 			stringToPrint += item.Post['CreationDate'] + "|"
 			stringToPrint += str(item.Post['Score']) + "   |"
@@ -103,7 +103,6 @@ class SearchQuestionMenu():
 		collection = SearchForQuestions.db["Posts"]
 
 		updatedViewCount = selectedPost.Post['ViewCount'] + 1
-		print(updatedViewCount)
 		updateQuery = { '$set' : { 'ViewCount' : updatedViewCount } }
 
 		collection.update_one(selectedPost.Post, updateQuery)
