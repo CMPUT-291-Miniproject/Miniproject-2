@@ -38,7 +38,7 @@ class SearchForQuestionsScreen:
 	
 	def printScreenKeyword():
 		SearchForQuestionsScreen.printTitleKeyword()
-		searchKeys = searchForQuestionsScreen.getParsedKeywords()
+		searchKeys = SearchForQuestionsScreen.getParsedKeywords()
 		return SearchForQuestions.getQuestions(searchKeys)
 
 	def printTitleMenu():
