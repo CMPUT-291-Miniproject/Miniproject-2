@@ -44,30 +44,46 @@ class SearchForQuestions:
 
 	def getMatchingTitle(searchKeys):
 		postsMatchingTitle = []
+		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
-			collection = SearchForQuestions.db["Posts"]
-			searchQuery = 	{'$and' : 
+			searchQuery = 	
+					{'$and' : 
 						[ { 'Title' : { '$regex' : keyWord, '$options' : 'i' }},
 						{ 'PostTypeId' : '1'} ]
 					}
+
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
 				print(result)
 
 	def getMatchingBody(searchKeys):
 		postsMatchingBody = []
+		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
-			queryResult = db.Posts.find({ 'Body' : { '$regex' : keyWord, '$options' : 'i' } })
-			print(queryResult)
+			searchQuery = 	
+					{'$and' : 
+						[ { 'Body' : { '$regex' : keyWord, '$options' : 'i' }},
+						{ 'PostTypeId' : '1'} ]
+					}
+
+			queryResults = collection.find(searchQuery)
+			for result in queryResults:
+				print(result)
 
 	def getMatchingTag(searchKeys):
 		postsMatchingTag = []
+		tagsCollection = SearchForQuestions.db["Tags"]
+		postsCollection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
-			for item in db.Tag.find({ 'TagName' : { '$regex' : keyWord, '$options' : 'i' } }):
-				print(item)
+			searchQuery = { 'TagName' : { '$regex' : keyWord, '$options' : 'i' } }
+			queryResults = collection.find(searchQuery)
+
+			for result in queryResults:
+				print(result)
+			
 
 
 			
