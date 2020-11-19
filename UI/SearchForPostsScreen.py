@@ -36,11 +36,13 @@ class SearchForQuestionsScreen:
 
 class SearchForQuestions:
 	def getQuestions(searchKeys):
-		posts = multiprocessing.Queue()
+		titleMatched = multiprocessing.Queue()
+		bodyMatched = multiprocessing.Queue()
+		tagMatched = multiprocessing.Queue()
 
-		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle, args = (searchKeys, posts))
-		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody, args = (searchKeys, posts))
-		tagProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTag, args = (searchKeys, posts))
+		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle, args = (searchKeys, titleMatched))
+		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody, args = (searchKeys, bodyMatched))
+		tagProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTag, args = (searchKeys, tagMatched))
 
 		processes = [titleProcess, bodyProcess, tagProcess]
 		for process in processes:
@@ -48,7 +50,9 @@ class SearchForQuestions:
 		for process in processes:
 			process.join()
 
-		print(posts)
+		print(titleMatched.get())
+		print(bodyMatched.get())
+		print(tagMatched.get())
 
 	def getMatchingTitle(searchKeys, posts):
 		postsMatchingTitle = []
