@@ -39,12 +39,15 @@ class SearchForQuestions:
 	db = client[Terminal.getDBName()]
 
 	def getQuestions(searchKeys):
-		titleThread = threading.Thread(target = SearchForQuestions.getMatchingTitle(searchKeys))
-		bodyThread = threading.Thread(target = SearchForQuestions.getMatchingBody(searchKeys))
-		tagThread = threading.Thread(target = SearchForQuestions.getMatchingTag(searchKeys))
+		posts = [None]*3
 
+		titleThread = threading.Thread(target = SearchForQuestions.getMatchingTitle(searchKeys), args = (posts))
+		bodyThread = threading.Thread(target = SearchForQuestions.getMatchingBody(searchKeys), args = (posts))
+		tagThread = threading.Thread(target = SearchForQuestions.getMatchingTag(searchKeys), args = (posts))
+(target=foo, args=('world!', results, i))
 		threads = [titleThread, bodyThread, tagThread]
-		
+		for thread in threads:
+			thread.start()
 		for thread in threads:
 			thread.join()
 
@@ -81,7 +84,7 @@ class SearchForQuestions:
 			for result in queryResults:
 				postsMatchingTitle.append(result)
 
-		return postsMatchingTitle
+		post[0] = postsMatchingTitle
 
 	def getMatchingBody(searchKeys):
 		postsMatchingBody = []
@@ -97,9 +100,9 @@ class SearchForQuestions:
 			for result in queryResults:
 				postsMatchingBody.append(result)
 		
-		return postsMatchingBody 
+		post[1] = postsMatchingBody
 
-	def getMatchingTag(searchKeys):
+	def getMatchingTag(searchKeys, posts):
 		postsMatchingTag = []
 		collection = SearchForQuestions.db["Posts"]
 
@@ -113,7 +116,7 @@ class SearchForQuestions:
 			for result in queryResults:
 				postsMatchingTag.append(result)
 
-		return postsMatchingTag
+		posts[2] = postsMatchingTag
 			
 
 
