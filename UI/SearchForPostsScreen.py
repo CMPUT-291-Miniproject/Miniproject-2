@@ -103,6 +103,7 @@ class SearchQuestionMenu():
 		collection = SearchForQuestions.db["Posts"]
 
 		updatedViewCount = selectedPost.Post['ViewCount'] + 1
+		print(updatedViewCount)
 		updateQuery = { '$set' : { 'ViewCount' : updatedViewCount } }
 
 		collection.update_one(selectedPost.Post, updateQuery)
