@@ -1,5 +1,5 @@
 import pymongo
-import threading
+import multiprocessing
 from Interface.Terminal import Terminal
 
 class SearchForQuestionsScreen:
@@ -41,15 +41,15 @@ class SearchForQuestions:
 	def getQuestions(searchKeys):
 		posts = [None]*3
 
-		titleThread = threading.Thread(target = SearchForQuestions.getMatchingTitle(searchKeys), args = (posts))
-		bodyThread = threading.Thread(target = SearchForQuestions.getMatchingBody(searchKeys), args = (posts))
-		tagThread = threading.Thread(target = SearchForQuestions.getMatchingTag(searchKeys), args = (posts))
+		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle(searchKeys), args = (searchKeys, posts))
+		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody(searchKeys), args = (searchKeys, posts))
+		tagProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTag(searchKeys), args = (searchKeys, posts))
 (target=foo, args=('world!', results, i))
-		threads = [titleThread, bodyThread, tagThread]
-		for thread in threads:
-			thread.start()
-		for thread in threads:
-			thread.join()
+		Processes = [titleProcess, bodyProcess, tagProcess]
+		for process in processes:
+			process.start()
+		for process in processes:
+			process.join()
 
 		seen = []
 		posts = []
