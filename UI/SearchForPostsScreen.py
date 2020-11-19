@@ -11,7 +11,7 @@ class SearchForQuestionsScreen:
 	search screen
 	"""
 
-	MenuOption = collections.namedtuple.('Post', 'PostID Post' )
+	MenuOption = collections.namedtuple('Post', 'PostID Post' )
 
 	def printTitleKeyword():
 		"""
