@@ -36,11 +36,11 @@ class SearchForQuestionsScreen:
 
 class SearchForQuestions:
 	def getQuestions(searchKeys):
-		searchTypes = [[],[],[]]
+		posts = {}
 
-		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle, args = (searchKeys, searchTypes[0]))
-		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody, args = (searchKeys, searchTypes[1]))
-		tagProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTag, args = (searchKeys, searchTypes[2]))
+		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle, args = (searchKeys, posts))
+		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody, args = (searchKeys, posts))
+		tagProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTag, args = (searchKeys, posts))
 
 		processes = [titleProcess, bodyProcess, tagProcess]
 		for process in processes:
@@ -72,7 +72,7 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts.append(result)
+				posts[result['Id']] = result
 		print(post[0])
 
 	def getMatchingBody(searchKeys, posts):
@@ -88,8 +88,7 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts.append(result)
-		print(posts[0])
+				posts[result['Id']] = result
 
 	def getMatchingTag(searchKeys, posts):
 		postsMatchingTag = []
@@ -104,8 +103,7 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts.append(result)
-		print(posts[0])
+				posts[result['Id']] = result
 
 	def connectToDB():
 		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
