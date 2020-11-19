@@ -72,9 +72,8 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				postsMatchingTitle.append(result)
-
-		posts = postsMatchingTitle
+				posts.append(result)
+		print(post[0])
 
 	def getMatchingBody(searchKeys, posts):
 		postsMatchingBody = []
@@ -89,9 +88,8 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				postsMatchingBody.append(result)
-		
-		posts = postsMatchingBody
+				posts.append(result)
+		print(posts[0])
 
 	def getMatchingTag(searchKeys, posts):
 		postsMatchingTag = []
@@ -106,9 +104,8 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				postsMatchingTag.append(result)
-
-		posts = postsMatchingTag
+				posts.append(result)
+		print(posts[0])
 
 	def connectToDB():
 		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
