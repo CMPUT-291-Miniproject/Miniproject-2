@@ -108,7 +108,7 @@ class SearchQuestionMenu():
 		collection.update_one(selectedPost.Post, updateQuery)
 
 
-		return selectedPost
+		return selectedPost.Post
 
 
 	def getMaxTitleLength(self):
@@ -183,7 +183,7 @@ class SearchForQuestions:
 			
 if __name__ == "__main__":
 	sScreen = SearchForQuestionsScreen
-	s = SearchForQuestions
+	#s = SearchForQuestions
 	#SearchForQuestions.getMatchingTitle(['What'])
 	#SearchForQuestions.getMatchingBody(['The'])
 	#SearchForQuestions.getMatchingTag(['mac'])
