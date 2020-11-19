@@ -47,8 +47,7 @@ class SearchForQuestions:
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
-			searchQuery = 	
-					{'$and' : 
+			searchQuery = 	{'$and' : 
 						[ { 'Title' : { '$regex' : keyWord, '$options' : 'i' }},
 						{ 'PostTypeId' : '1'} ]
 					}
@@ -62,8 +61,7 @@ class SearchForQuestions:
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
-			searchQuery = 	
-					{'$and' : 
+			searchQuery = 	{'$and' : 
 						[ { 'Body' : { '$regex' : keyWord, '$options' : 'i' }},
 						{ 'PostTypeId' : '1'} ]
 					}
@@ -73,14 +71,16 @@ class SearchForQuestions:
 				print(result)
 
 	def getMatchingTag(searchKeys):
-		postsMatchingTag = []
-		tagsCollection = SearchForQuestions.db["Tags"]
-		postsCollection = SearchForQuestions.db["Posts"]
+		postsWithTag = []
+		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
-			searchQuery = { 'TagName' : { '$regex' : keyWord, '$options' : 'i' } }
-			queryResults = collection.find(searchQuery)
+			searchQuery = 	{'$and'
+						[ { 'Tags' : { '$regex' : keyWord, '$options' : 'i' }},
+						{ 'PostTypeId' : '1' } ]
+					}
 
+			queryResults = collection.find(searchQuery)
 			for result in queryResults:
 				print(result)
 			
@@ -89,5 +89,5 @@ class SearchForQuestions:
 			
 if __name__ == "__main__":
 	SearchForQuestions.getMatchingTitle(['What'])
-	#SearchForQuestions.getMatchingBody("The")
-	#SearchForQuestions.getMatchingTag("hardware")
+	#SearchForQuestions.getMatchingBody(['The'])
+	#SearchForQuestions.getMatchingTag(['mac'])
