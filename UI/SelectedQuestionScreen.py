@@ -2,12 +2,12 @@ from Terminal import Terminal
 
 class SelectedQuestionScreen:
 
-	printTitle(post):
+	def printTitle(post):
 		for key in post:
 			if (key is not None):
 				Terminal.printCenter(key + ": " + post[key] + "\n\n")
 
-	printScreen(post):
+	def printScreen(post):
 		SelectedQuestionScreen(post)
 
 
