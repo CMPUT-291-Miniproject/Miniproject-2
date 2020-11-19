@@ -108,4 +108,4 @@ if __name__ == "__main__":
 	#SearchForQuestions.getMatchingBody(['The'])
 	#SearchForQuestions.getMatchingTag(['mac'])
 
-	print(SearchForQuestions.getQuestions(['I have Google Chrome']))
+	print(SearchForQuestions.getQuestions(['mac']))
