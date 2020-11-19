@@ -1,5 +1,4 @@
 import pymongo
-import multiprocessing
 from Interface.Terminal import Terminal
 
 class SearchForQuestionsScreen:
@@ -35,25 +34,36 @@ class SearchForQuestionsScreen:
 		return searchTermList
 
 class SearchForQuestions:
+	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
+	db = client[Terminal.getDBName()]
+
 	def getQuestions(searchKeys):
-		posts = multiprocessing.Queue()
+		postsMatchingTitle = SearchForQuestions.getMatchingTitle(searchKeys)
+		postsMatchingBody = SearchForQuestions.getMatchingBody(searchKeys)
+		postsMatchingTag = SearchForQuestions.getMatchingTag(searchKeys)
 
-		titleProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTitle, args = (searchKeys, posts))
-		bodyProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingBody, args = (searchKeys, posts))
-		tagProcess = multiprocessing.Process(target = SearchForQuestions.getMatchingTag, args = (searchKeys, posts))
+		seen = []
+		posts = []
+		for post in postsMatchingTitle:
+			print(post['Id'])
+			if post['Id'] not in seen:
+				seen.append(post['Id'])
+				posts.append(post)
+		for post in postsMatchingBody:
+			print(post['Id'])
+			if post['Id'] not in seen:
+				seen.append(post['Id'])
+				posts.append(post)
+		for post in postsMatchingTag:
+			print(post['Id'])
+			if post['Id'] not in seen:
+				seen.append(post['Id'])
+				posts.append(post)
+		return seen
 
-		processes = [titleProcess, bodyProcess, tagProcess]
-		for process in processes:
-			process.start()
-		for process in processes:
-			process.join()
-
-		print(posts)
-
-	def getMatchingTitle(searchKeys, posts):
+	def getMatchingTitle(searchKeys):
 		postsMatchingTitle = []
-		db = SearchForQuestions.connectToDB()
-		collection = db["Posts"]
+		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
 			searchQuery = 	{'$and' : 
@@ -63,12 +73,13 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts.put(result)
+				postsMatchingTitle.append(result)
 
-	def getMatchingBody(searchKeys, posts):
+		return postsMatchingTitle
+
+	def getMatchingBody(searchKeys):
 		postsMatchingBody = []
-		db = SearchForQuestions.connectToDB()
-		collection = db["Posts"]
+		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
 			searchQuery = 	{'$and' : 
@@ -78,12 +89,13 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts.put(result)
+				postsMatchingBody.append(result)
+		
+		return postsMatchingBody 
 
-	def getMatchingTag(searchKeys, posts):
+	def getMatchingTag(searchKeys):
 		postsMatchingTag = []
-		db = SearchForQuestions.connectToDB()
-		collection = db["Posts"]
+		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
 			searchQuery = 	{'$and' : 
@@ -93,12 +105,9 @@ class SearchForQuestions:
 
 			queryResults = collection.find(searchQuery)
 			for result in queryResults:
-				posts.put(result)
+				postsMatchingTag.append(result)
 
-	def connectToDB():
-		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
-		db = client[Terminal.getDBName()]
-		return db
+		return postsMatchingTag
 			
 
 
@@ -108,4 +117,4 @@ if __name__ == "__main__":
 	#SearchForQuestions.getMatchingBody(['The'])
 	#SearchForQuestions.getMatchingTag(['mac'])
 
-	print(SearchForQuestions.getQuestions(['mac']))
+	print(SearchForQuestions.getQuestions(['I have Google Chrome']))
