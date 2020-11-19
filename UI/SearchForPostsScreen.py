@@ -50,7 +50,7 @@ class SearchForQuestionsScreen:
 
 	def printScreen():
 		posts = SearchForQuestionsScreen.printScreenKeyword()
-		SearchForQuestions.printScreenMenu(posts)
+		SearchForQuestionsScreen.printScreenMenu(posts)
 
 
 class SearchQuestionMenu():
