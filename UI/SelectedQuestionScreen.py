@@ -12,7 +12,7 @@ class SelectedQuestionScreen:
 
 
 if __name__ == "__main__":
-	from SearchForPostsScreen import SearchForPostsScreen
+	from SearchForPostsScreen import SearchForQuestionsScreen
 
 	sScreen = SearchForQuestionsScreen
 	post = sScreen.printScreen()
