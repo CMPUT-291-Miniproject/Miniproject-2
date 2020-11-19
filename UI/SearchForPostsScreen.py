@@ -70,7 +70,7 @@ class SearchQuestionMenu():
 			stringToPrint = ""
 
 			stringToPrint += str(i) + ". "
-			stringToPrint += item.Post['Title'] + " "* titleLenDiff + "|"
+			stringToPrint += item.Post['Title'] + " " + "|"
 			stringToPrint += str(item.Post['Score']) + "   |"
 			stringToPrint += str(item.Post['AnswerCount']) 
 
