@@ -76,9 +76,9 @@ class SearchQuestionMenu():
 
 			print(stringToPrint)
 		input("Enter selection: ")
-		
 
-	def getMaxTitleLength():
+
+	def getMaxTitleLength(self):
 		maxItemLength = 0
 		for item in self.__menuItems__:
 			temp = len(item.Post['Title'])
