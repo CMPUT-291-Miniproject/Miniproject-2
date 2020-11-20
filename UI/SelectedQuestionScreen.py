@@ -5,7 +5,8 @@ class SelectedQuestionScreen:
 	def printTitle(post):
 		Terminal.clear()
 		usedKeys = ["Id", "Title", "Body", "Tags", "Score", 
-					"CommentCount", "AnswerCount", "FavoriteCount"] 
+					"ViewCount", "CommentCount", "AnswerCount", 
+					"FavoriteCount", "CreationDate", "LastEditDate"] 
 
 		for key in usedKeys:
 			if (key in post):
@@ -13,7 +14,7 @@ class SelectedQuestionScreen:
 
 		Terminal.printCenter("\n\nMisc Info:\n")
 		for key in post:
-			if (key is not None and key not in usedKeys):
+			if (key is not None and key not in usedKeys and key is not "_id"):
 				Terminal.printCenter(str(key) + ": " + str(post[key]) + "\n\n")
 
 	def printScreen(post):
