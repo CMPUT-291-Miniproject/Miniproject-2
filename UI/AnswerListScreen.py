@@ -9,7 +9,7 @@ class AnswerListScreen:
 	def printScreen(question):
 		answers = AnswerList.getAnswers(question)
 		menu = AnswerListMenu(answers, question)
-		menu.printMenu()
+		menu.printScreen()
 
 
 
