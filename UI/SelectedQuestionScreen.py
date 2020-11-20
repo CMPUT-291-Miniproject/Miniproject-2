@@ -38,7 +38,7 @@ class SelectedQuestionScreen:
 			print(str(i+1) + ". " + option)
 
 	def printScreen(post):
-		MAX_MENU_OPTION = 5
+		MAX_MENU_OPTION = 4
 		MIN_MENU_OPTION = 1
 		invalidInput = True
 		while invalidInput:
