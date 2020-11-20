@@ -25,12 +25,12 @@ class Vote:
 
 
 	def getUniqueID(collection):
-		maxId = 1
-		query = {'Id':str(maxId)}
-		while collection.find_one(query):
-			maxId *= 2
-		while not collection.find_one(query):
-			maxId += -1
+		maxId = 0
+		results = collection.find();
+		for result in results:
+			if int(result['Id']) > maxId:
+				maxId = int(result['Id'])
+		return str(maxId + 1)
 
 
 	def userVoted(collection, post, userID):
