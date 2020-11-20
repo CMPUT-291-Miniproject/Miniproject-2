@@ -39,7 +39,7 @@ class Vote:
 						[{ 'UserId' : userID},
 						{ 'PostId' : post['Id']}] 
 				}
-		print(collection.find_one(query).count())
+		print(collection.find_one(query))
 
 		
 if __name__ == "__main__":
