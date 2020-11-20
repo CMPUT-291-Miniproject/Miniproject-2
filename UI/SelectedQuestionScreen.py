@@ -4,13 +4,13 @@ class SelectedQuestionScreen:
 
 	def printKeyTitle(key):
 		if key == "Title" or key == "Body" or key == "Tags":
-			string = "----------" + key + "----------" + "\n\n"
+			string = "----------" + key + "----------" + "\n"
 			Terminal.printCenter(string)
 		if key == "Score":
-			string = "----------" + "Post Data" + "----------" + "\n\n"
+			string = "----------" + "Post Data" + "----------" + "\n"
 			Terminal.printCenter(string)
 		if key == "CreationDate":
-			string = "----------" + "Dates" + "----------" + "\n\n"
+			string = "----------" + "Dates" + "----------" + "\n"
 			Terminal.printCenter(string)
 		
 
@@ -30,10 +30,40 @@ class SelectedQuestionScreen:
 		Terminal.printCenter("----------Misc Info----------")
 		for key in post:
 			if (key is not None and key not in usedKeys and key != "_id"):
-				Terminal.printCenter(str(key) + ": " + str(post[key]) + "\n\n")
+				Terminal.printCenter(str(key) + ": " + str(post[key]) + "\n")
+
+	def printMenu():
+		menuOptions = ["Answer Question","List Answers","Vote","Exit"]
+		for i,option in enumerate(menuOptions):
+			print(str(i) + ". " + option)
 
 	def printScreen(post):
-		SelectedQuestionScreen.printTitle(post)
+		MAX_MENU_OPTION = 5
+		MIN_MENU_OPTION = 1
+		invalidInput = True
+		while invalidInput:
+			SelectedQuestionScreen.printTitle(post)
+			SelectedQuestionScreen.printMenu()
+			userInput = input("Select Option: ")
+
+			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
+				return None
+
+			try:
+				int(userInput)
+				if userInput > MAX_MENU_OPTION or userInput < MIN_MENU_OPTION:
+					print("Selection out of range!")
+				else:
+					invalidInput = False
+			except Exception:
+				print("Invalid Input!")
+			finally:
+				input("Press Enter to Continue: ")
+		return userInput
+
+		
+
+		
 
 
 if __name__ == "__main__":
