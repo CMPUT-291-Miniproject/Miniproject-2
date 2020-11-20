@@ -15,11 +15,10 @@ class Vote:
 		creationDate = str(datetime.datetime.utcnow().isoformat())
 		
 		if userID:
-			if (Vote.userVoted(votesCollection, post, userID)):
-				return False
-			voteID = Vote.getUniqueID(votesCollection)
-			voteDict = {voteID, postID, voteTypeID, userID, creationDate}
-			print(voteDict)
+			if (!Vote.userVoted(votesCollection, post, userID)):
+				voteID = Vote.getUniqueID(votesCollection)
+				voteDict = {voteID, postID, voteTypeID, userID, creationDate}
+				print(voteDict)
 		else:
 			voteID = Vote.getUniqueID(votesCollection)
 			voteDict = {voteID, postID, voteTypeId, creationDate}
@@ -39,7 +38,7 @@ class Vote:
 						[{ 'UserId' : userID},
 						{ 'PostId' : post['Id']}] 
 				}
-		print(collection.find_one(query) is not None)
+		return collection.find_one(query) is not None
 
 		
 if __name__ == "__main__":
