@@ -30,7 +30,7 @@ class AnswerListMenu:
 	def printAnswer(self, item, index, accepted = False):
 		string = ""
 		if item.Accepted:
-			string += "*********************************"
+			string += "*********************************\n"
 		string += str(index + 1) + ". " +"\n"
 		if len(item.Post['Body']) > 80:
 			string += item.Post['Body'][:80] + "\n"
@@ -40,7 +40,7 @@ class AnswerListMenu:
 		string += "CreationDate: " + item.Post['CreationDate'] + "\n"
 		string += "Score: " + str(item.Post['Score']) + "\n" 
 		if item.Accepted:
-			string += "*********************************"
+			string += "*********************************\n"
 
 		print(string)
 
