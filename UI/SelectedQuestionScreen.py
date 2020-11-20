@@ -15,7 +15,7 @@ class SelectedQuestionScreen:
 					"ContentLicense"]
 
 		Terminal.printCenter("----------Post----------")
-		print("\n")*5
+		print("\n"*5)
 		for key in usedKeys:
 			if (key in post):
 				printKeyTitle(key)
