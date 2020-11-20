@@ -1,4 +1,4 @@
-import mongopy
+import pymongo
 import datetime
 from Terminal import Terminal
 class Vote:
