@@ -114,7 +114,7 @@ class SearchQuestionMenu():
 			else:
 				try:
 					userInput = int(userInput)
-					if (userInput < 1 or userInput > 100):
+					if (userInput < 1 or userInput > 100 or userInput > len(self.__menuItems__[index:])):
 						print("Input is out of range")
 					else:
 						continueRunning = False
