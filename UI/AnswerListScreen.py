@@ -38,7 +38,7 @@ class AnswerListMenu:
 			string += item.Post['Body'] + "\n"
 
 		string += "CreationDate: " + item.Post['CreationDate'] + "\n"
-		string += "Score: " + str(item.Post['Score'])
+		string += "Score: " + str(item.Post['Score'] + "\n")
 
 		print(string)
 
