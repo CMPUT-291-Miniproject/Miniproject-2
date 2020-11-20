@@ -51,5 +51,5 @@ if __name__ == "__main__":
 
 	post = search.printScreen()
 	if (select.printScreen(post) == 3):
-		Vote.makeVote(post)
+		Vote.makeVote(post, '50')
 
