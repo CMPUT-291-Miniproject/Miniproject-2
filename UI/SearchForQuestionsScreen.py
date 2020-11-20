@@ -99,7 +99,7 @@ class SearchQuestionMenu():
 			userInput = input("Enter Selection: ")
 			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
 				return None
-			elif userInput.upper() == "NEXT" and index < len(self.__menuItems__:
+			elif userInput.upper() == "NEXT" and index < len(self.__menuItems__):
 				index += 100
 			elif userInput.upper() == "PREV" and index >= 100:
 				index += -100
