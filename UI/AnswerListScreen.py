@@ -61,9 +61,9 @@ class AnswerListMenu:
 						print("Input is out of range")
 					else:
 						invalidInput = False
-				except Exception:
+			except Exception:
 					print("Entered input is invalid!")
-				finally:
+			finally:
 					input("Press Enter to Continue: ")
 			userInput += -1
 			print(self.__menuItems__[userInput].Post)
