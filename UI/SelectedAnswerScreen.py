@@ -42,6 +42,6 @@ if __name__ == "__main__":
 
 	question = search.printScreen()
 	if (SelectedQuestionScreen.printScreen(question) == 2):
-		answer = listAnswer.printScreen()
+		answer = listAnswer.printScreen(question)
 		if (answer):
 			SelectedAnswerScreen.print(answer)
