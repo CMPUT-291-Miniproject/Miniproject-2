@@ -30,7 +30,7 @@ class AnswerListMenu:
 		string = ""
 		if accepted:
 			string += "*** "
-		string += str(index) + ". " + "\n"
+		string += str(index + 1) + ". " + "\n"
 
 		if len(item.Post['Body']) > 80:
 			string += item.Post['Body'][:80] + "\n"
