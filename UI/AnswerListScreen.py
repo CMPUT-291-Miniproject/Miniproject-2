@@ -1,6 +1,6 @@
 import pymongo
 import collections
-import SelectedQuestionScreen from SelectedQuestionScreen
+from SelectedQuestionScreen import SelectedQuestionScreen 
 from Terminal import Terminal
 
 class AnswerListScreen:
