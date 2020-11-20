@@ -11,7 +11,7 @@ class Vote:
 
 		
 		postID = post['Id']
-		voteTypeId = '2'
+		voteTypeID = '2'
 		creationDate = str(datetime.datetime.utcnow().isoformat())
 		
 		if userID:
@@ -20,7 +20,7 @@ class Vote:
 				voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'UserId' : userID, 'CreationDate' : creationDate}
 		else:
 			voteID = Vote.getUniqueID(votesCollection)
-			voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeId, 'CreationDate' : creationDate}
+			voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'CreationDate' : creationDate}
 		print(voteDict)
 
 
