@@ -44,4 +44,4 @@ if __name__ == "__main__":
 	if (SelectedQuestionScreen.printScreen(question) == 2):
 		answer = listAnswer.printScreen(question)
 		if (answer):
-			SelectedAnswerScreen.print(answer)
+			SelectedAnswerScreen.printScreen(answer)
