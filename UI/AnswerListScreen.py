@@ -1,6 +1,6 @@
 import pymongo
 import collections
-
+import SelectedQuestionScreen from SelectedQuestionScreen
 from Terminal import Terminal
 
 class AnswerListScreen:
@@ -15,6 +15,7 @@ class AnswerListScreen:
 
 class AnswerListMenu:
 	def __init__(self, answers, question):
+		self.__question__ question
 		self.__menuItems__ = []
 		if ('AcceptedAnswerId' in question):
 			acceptedAnswerId = question['AcceptedAnswerId']
@@ -46,6 +47,26 @@ class AnswerListMenu:
 		for  i,item in enumerate(self.__menuItems__):
 				self.printAnswer(item, i)
 
+	def printScreen(self):
+		invalidInput = True
+		while invalidInput:
+			SelectedQuestionScreen.printScreen(self.__question__)
+			self.printMenu()
+			userInput = input("Enter Selection: ")
+			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
+				return None
+			try:
+					userInput = int(userInput)
+					if (userInput < 1 or userInput > len(self.__menuItems__):
+						print("Input is out of range")
+					else:
+						invalidInput = False
+				except Exception:
+					print("Entered input is invalid!")
+				finally:
+					input("Press Enter to Continue: ")
+			userInput += -1
+			print(self.__menuItems__[userInput].Post)
 
 
 class AnswerList:
