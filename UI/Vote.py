@@ -34,6 +34,6 @@ if __name__ == "__main__":
 	select = SelectedQuestionScreen
 
 	post = search.printScreen()
-	if (select.printScreen == 3):
+	if (select.printScreen() == 3):
 		Vote.makeVote(post)
 
