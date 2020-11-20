@@ -67,7 +67,7 @@ class SearchQuestionMenu():
 	def printPost(self, item, index):
 		stringToPrint = ""
 
-		stringToPrint += str(i+1) + ". "
+		stringToPrint += str(index+1) + ". "
 		stringToPrint += item.Post['Title'] + " " + "|"
 		stringToPrint += item.Post['CreationDate'] + "|"
 		stringToPrint += str(item.Post['Score']) + "   |"
