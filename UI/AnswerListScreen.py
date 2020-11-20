@@ -57,7 +57,7 @@ class AnswerListMenu:
 				return None
 			try:
 					userInput = int(userInput)
-					if (userInput < 1 or userInput > len(self.__menuItems__):
+					if userInput < 1 or userInput > len(self.__menuItems__):
 						print("Input is out of range")
 					else:
 						invalidInput = False
