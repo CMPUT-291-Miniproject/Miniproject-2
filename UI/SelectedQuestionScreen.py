@@ -5,13 +5,14 @@ class SelectedQuestionScreen:
 	def printKeyTitle(key):
 		if key == "Title" or key == "Body":
 			string = "----------" + key + "----------" + "\n\n"
+			Terminal.printCenter(string)
 		if key == "Score":
 			string = "----------" + "Post Data" + "----------" + "\n\n"
+			Terminal.printCenter(string)
 		if key == "CreationDate":
 			string = "----------" + "Dates" + "----------" + "\n\n"
-		else:
-			return None
-		Terminal.printCenter(string)
+			Terminal.printCenter(string)
+		
 
 	def printTitle(post):
 		Terminal.clear()
