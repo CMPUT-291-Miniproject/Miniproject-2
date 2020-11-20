@@ -1,4 +1,4 @@
-import Terminal from Terminal
+from Terminal import Terminal
 
 class PostPrinter:
 
