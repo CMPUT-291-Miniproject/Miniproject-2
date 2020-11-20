@@ -65,6 +65,7 @@ class AnswerList:
 		results = collection.find(query)
 		for result in results:
 			answers[result['Id']] = result
+		print(answers)
 		return answers
 
 if __name__ == "__main__":
