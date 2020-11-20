@@ -23,7 +23,7 @@ class PostPrinter:
 		Terminal.printCenter("----------Post----------")
 		for key in usedKeys:
 			if (key in post):
-				SelectedQuestionScreen.printKeyTitle(key)
+				PostPrinter.printKeyTitle(key)
 				Terminal.printCenter(key + ": " + str(post[key]) + "\n")
 
 		Terminal.printCenter("----------Misc Info----------")
