@@ -4,7 +4,7 @@ from Terminal import Terminal
 class Vote:
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 	db = client[Terminal.getDBName()]
-
+	#BUG VOTETYPEID IS NOT DEFINED STILL NEED TO INSERT AFTER FINISH
 	def makeVote(post, userID=None):
 		postCollection = Vote.db['Posts']
 		votesCollection = Vote.db['Votes']
@@ -16,7 +16,7 @@ class Vote:
 		
 		if userID:
 			if (not Vote.userVoted(votesCollection, post, userID)):
-				voteID = Vote.getUniqueID(votesCollection)
+				voteID = Vote.otherGetId(votesCollection)
 				voteDict = {voteID, postID, voteTypeID, userID, creationDate}
 				print(voteDict)
 		else:
@@ -32,6 +32,29 @@ class Vote:
 			if int(result['Id']) > maxId:
 				maxId = int(result['Id'])
 		return str(maxId + 1)
+
+	def otherGetId(collection):
+		min,max = Vote.getMaxMin()
+		while min <= max-1:
+			mid = (max + min)//2
+			if collection.find_one({'Id' : str(mid)}) is None:
+				max = mid
+			else:
+				min = mid
+
+		return max
+
+
+
+	def getMaxMin(collection):
+    	maxNum = 1
+    	minNum = 1
+    	while  collection.find_one({'Id': str(maxNum)}) is not None:
+        	minNum = maxNum
+        	maxNum *= 2
+        return (minNum, maxNum)
+    
+    return [minNum, maxNum
 
 	def userVoted(collection, post, userID):
 		query = {'$and' : 
