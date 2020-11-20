@@ -13,7 +13,7 @@ class SelectedQuestionScreen:
 		invalidInput = True
 		while invalidInput:
 			PostPrinter.printTitle(post)
-			PostPrinter.printMenu()
+			SelectedQuestionScreen.printMenu()
 
 			userInput = input("Select Option: ")
 			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
