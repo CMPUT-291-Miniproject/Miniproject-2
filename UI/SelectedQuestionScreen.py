@@ -7,7 +7,7 @@ class SelectedQuestionScreen:
 		usedKeys = ["Id", "Title", "Body", "Tags", "CreationDate"] 
 
 		for key in usedKeys:
-			if (post.has_key(key)):
+			if (key in post):
 				Terminal.printCenter(key + ": " + str(post[key]) + "\n\n")
 
 
