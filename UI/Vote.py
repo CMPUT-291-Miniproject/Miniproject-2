@@ -18,10 +18,15 @@ class Vote:
 			if (not Vote.userVoted(votesCollection, post, userID)):
 				voteID = Vote.getUniqueID(votesCollection)
 				voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'UserId' : userID, 'CreationDate' : creationDate}
+			else:
+				return False
 		else:
 			voteID = Vote.getUniqueID(votesCollection)
 			voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'CreationDate' : creationDate}
-		print(voteDict)
+		
+		votesCollection.insert_one(voteDict)
+		Vote.updatePostVotes(post, postCollection)
+		return True
 
 
 	def getUniqueID(collection):
@@ -39,6 +44,11 @@ class Vote:
 						{ 'PostId' : post['Id']}] 
 				}
 		return collection.find_one(query) is not None
+
+	def updatePostVotes(post, collection):
+		updatedScore = post['Score'] + 1
+		updateQuery = { '$set' : { 'Score' : updatedScore } }
+		collection.update_one(selectedPost.Post, updateQuery)
 
 		
 if __name__ == "__main__":
