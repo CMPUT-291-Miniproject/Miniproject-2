@@ -92,18 +92,40 @@ class SearchQuestionMenu():
 			
 	
 	def printScreen(self):
-		invalidInput = True
+		continueRunning = True
 		index = 0
-		while invalidInput:
+		while continueRunning:
 			self.printMenuBetter(index)
 			userInput = input("Enter Selection: ")
 			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
 				return None
-			elif userInput.upper() == "NEXT" and index < len(self.__menuItems__):
-				index += 100
-			elif userInput.upper() == "PREV" and index >= 100:
-				index += -100
-		userInput += -1
+			elif userInput.upper() == "NEXT":
+				if index < len(self.__menuItems__):
+					index += 100
+				else:
+					print("You are currently on the last page!")
+					input("Type Enter to Continue: ")
+			elif userInput.upper() == "PREV":
+				if index >= 100:
+					index += -100
+				else:
+					print("You are currently on the first page!")
+					input("Press Enter to Continue: ")
+			else:
+				try:
+				userInput = int(userInput)
+				if (userInput < 1 or userInput > 100):
+					print("Input is out of range")
+				else:
+					continueRunning = False
+			except Exception:
+				print("Entered input is invalid!")
+			finally:
+				input("Press Enter to Continue: ")
+
+
+
+		userInput += -1 + index
 
 		selectedPost = self.__menuItems__[userInput]
 
