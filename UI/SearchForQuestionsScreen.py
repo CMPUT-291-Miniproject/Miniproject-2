@@ -55,6 +55,8 @@ class SearchForQuestionsScreen:
 		return post
 
 class SearchQuestionMenu():
+	POSTS_PER_PAGE = 100
+
 	def __init__(self, posts):
 		self.__menuItems__ = []
 		self.fillMenu(posts)
@@ -75,46 +77,38 @@ class SearchQuestionMenu():
 
 		print(stringToPrint)
 
-
-	def printMenu(self):
-		for i,item in enumerate(self.__menuItems__):
-			self.printPost(item, i)
-
-	def printMenuBetter(self, index):
-		if index+100 > len(self.__menuItems__[index:]):
+	def printMenu(self, index):
+		if index POSTS_PER_PAGE > len(self.__menuItems__[index:]):
 			for  i,item in enumerate(self.__menuItems__[index:]):
 				self.printPost(item, i)
 		else:
-			for i in range(100):
+			for i in range POSTS_PER_PAGE):
 				self.printPost(self.__menuItems__[i+index], i)
 
-
-			
-	
 	def printScreen(self):
 		continueRunning = True
 		index = 0
 		while continueRunning:
-			self.printMenuBetter(index)
+			self.printMenu(index)
 			userInput = input("Enter Selection: ")
 			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
 				return None
 			elif userInput.upper() == "NEXT":
-				if index < len(self.__menuItems__):
-					index += 100
+				if index POSTS_PER_PAGE < len(self.__menuItems__):
+					index += POSTS_PER_PAGE
 				else:
 					print("You are currently on the last page!")
 					input("Type Enter to Continue: ")
 			elif userInput.upper() == "PREV":
-				if index >= 100:
-					index += -100
+				if index >= POSTS_PER_PAGE:
+					index +=  POSTS_PER_PAGE
 				else:
 					print("You are currently on the first page!")
 					input("Press Enter to Continue: ")
 			else:
 				try:
 					userInput = int(userInput)
-					if (userInput < 1 or userInput > 100 or userInput > len(self.__menuItems__[index:])):
+					if (userInput < 1 or userInput > POSTS_PER_PAGE or userInput > len(self.__menuItems__[index:])):
 						print("Input is out of range")
 					else:
 						continueRunning = False
