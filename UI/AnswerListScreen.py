@@ -50,7 +50,9 @@ class AnswerListMenu:
 	def printScreen(self):
 		invalidInput = True
 		while invalidInput:
+			Terminal.clear()
 			SelectedQuestionScreen.printTitle(self.__question__)
+			print("\n")
 			self.printMenu()
 			userInput = input("Enter Selection: ")
 			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
