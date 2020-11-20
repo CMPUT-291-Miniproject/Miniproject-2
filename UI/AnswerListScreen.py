@@ -73,4 +73,4 @@ if __name__ == "__main__":
 
 	post = search.printScreen()
 	if select.printScreen(post) == 2:
-		AnswerListScreen.printScreen()
+		AnswerListScreen.printScreen(post)
