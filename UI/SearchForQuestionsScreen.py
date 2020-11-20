@@ -64,10 +64,8 @@ class SearchQuestionMenu():
 			if key is not None:
 				self.__menuItems__.append(SearchForQuestionsScreen.MenuOption(PostID=key, Post=posts[key]))
 
-	def printMenu(self):
-		maxTitleLength = self.getMaxTitleLength()
-		for i,item in enumerate(self.__menuItems__):
-			titleLenDiff = len(item.Post['Title'])
+	def printPost(self, item):
+		titleLenDiff = len(item.Post['Title'])
 			stringToPrint = ""
 
 			stringToPrint += str(i+1) + ". "
@@ -77,6 +75,13 @@ class SearchQuestionMenu():
 			stringToPrint += str(item.Post['AnswerCount']) + "\n"
 
 			print(stringToPrint)
+
+
+	def printMenu(self):
+		maxTitleLength = self.getMaxTitleLength()
+		for i,item in enumerate(self.__menuItems__):
+			self.printPost(item)
+			
 	
 	def printScreen(self):
 		invalidInput = True

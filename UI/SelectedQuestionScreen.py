@@ -9,12 +9,13 @@ class SelectedQuestionScreen:
 					"FavoriteCount", "CreationDate", "LastEditDate",
 					"ContentLicense"]
 
+		Terminal.printCenter("----------Post----------")
 		for key in usedKeys:
 			if (key in post):
 				if key == "Score":
-					Terminal.printCenter("Post Info")
+					Terminal.printCenter("----------Post Info-----------")
 				if key == "CreationDate":
-					Terminal.printCenter("Post Date Info")
+					Terminal.printCenter("----------Post Date Info----------")
 				Terminal.printCenter(key + ": " + str(post[key]) + "\n")
 
 		Terminal.printCenter("\n\nMisc Info:\n")
