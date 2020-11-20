@@ -9,15 +9,19 @@ class Vote:
 		postCollection = Vote.db['Posts']
 		votesCollection = Vote.db['Votes']
 
-		voteID = Vote.getUniqueID(votesCollection)
+		
 		postID = post['Id']
 		voteTypeId = '2'
 		creationDate = str(datetime.datetime.utcnow().isoformat())
 		
 		if userID:
+			if (Vote.userVoted(votesCollection, post, userID)):
+				return False
+			voteID = Vote.getUniqueID(votesCollection)
 			voteDict = {voteID, postID, voteTypeID, userID, creationDate}
 			print(voteDict)
 		else:
+			voteID = Vote.getUniqueID(votesCollection)
 			voteDict = {voteID, postID, voteTypeId, creationDate}
 			print(voteDict)
 
@@ -29,6 +33,14 @@ class Vote:
 			if int(result['Id']) > maxId:
 				maxId = int(result['Id'])
 		return str(maxId + 1)
+
+	def userVoted(collection, post, userID):
+		query = {'$and' : 
+						[{ 'UserId' : userID},
+						{ 'PostId' : post['Id']}] 
+				}
+		return collection.find_one(query).count() == 1
+
 		
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
