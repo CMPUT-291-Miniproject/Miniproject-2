@@ -1,9 +1,9 @@
-from Terminal import Terminal
-from WelcomeScreen import WelcomeScreen
-from MainMenuScreen import MainMenuScreen
-from PostScreen import PostScreen
-from SearchForPostsScreen import SearchForPostsScreen
-from Vote import Vote
+from UI.Interface.Terminal import Terminal
+from UI.WelcomeScreen import WelcomeScreen
+#from UI.MainMenuScreen import MainMenuScreen
+from UI.PostScreen import PostScreen
+from UI.SearchForQuestionsScreen import SearchForQuestionsScreen
+#from Vote import Vote
 
 if __name__ == "__main__":
 	terminal = Terminal()

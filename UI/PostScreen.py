@@ -1,4 +1,4 @@
-from Terminal import Terminal
+from Interface.Terminal import Terminal
 from Post import Post
 
 class PostScreen:
@@ -8,13 +8,11 @@ class PostScreen:
 	Uses the framework from PostQuestion.py to enter the question into the database, and Terminal for extra UI commands.
 	"""
 	
-	def __init__(self, terminal, uid=None):
+	def __init__(self, uid=None):
 		"""
 		Creates an instance of PostQuestionScreen, which is used in Main.py (subject to change)
 		
 		Parameters:
-			terminal: Terminal Object. Instance of the terminal screen used to display information. Essentially used for easily clearing a screen of text.
-			dbName: string. File name of the database. Name is subject to change on demo, therefore parsed at runtime as a sommand line arguement.
 			uid: User ID of the poster. Needed for adding question to database. 
 			
 		Additional Init. Variables:
@@ -22,7 +20,7 @@ class PostScreen:
 			
 		Returns: N/A
 		"""
-		self.__terminal__ = terminal
+		
 		self.__body__ = Post('291db', uid)
 	
 
@@ -38,9 +36,9 @@ class PostScreen:
 		
 		#Main input loop, runs until user input is valid, or they quit out of the menue.
 		while repeat:
-			self.__terminal__.clear()
-			self.__terminal__.printCenter("---POSTING QUESTION---")
-			self.__terminal__.printCenter("To go back without posting a question, input BACK during any prompt.")
+			Terminal.clear()
+			Terminal.printCenter("---POSTING QUESTION---")
+			Terminal.printCenter("To go back without posting a question, input BACK during any prompt.")
 			print('\n')
 			
 			#get title of post
@@ -84,15 +82,15 @@ class PostScreen:
 				
 			#input validation loop. breaks if input is Y or N.
 			while True:
-				self.__terminal__.clear()
+				Terminal.clear()
 				#prints the title and body
-				self.__terminal__.printCenter("Title: "+title)
-				self.__terminal__.printCenter("Body: "+body)
+				Terminal.printCenter("Title: "+title)
+				Terminal.printCenter("Body: "+body)
 				#prints the tags if applicable
 				if tags:
-					self.__terminal__.printCenter("Tags: "+tag_input)
+					Terminal.printCenter("Tags: "+tag_input)
 				else:
-					self.__terminal__.printCenter("Tags: N/A")
+					Terminal.printCenter("Tags: N/A")
 				print("\n")
 			
 				choice = input("Is this what you want to post? (Y or N): ")
@@ -185,5 +183,5 @@ class PostScreen:
 
 if __name__ == "__main__":
 	
-	postQuestionScreen = PostScreen(Terminal(), 'rtzy')
+	postQuestionScreen = PostScreen()
 	postQuestionScreen.printQuestionScreen()

@@ -40,7 +40,7 @@ class FileManager:
 	READ_CONSTANT = "r"	
 	
 	def readJsonFile(fileName):
-		directory = os.path.dirname(__file__) + "../" + fileName		#Directory where file is contained
+		directory = os.path.dirname(__file__) + "../../" + fileName		#Directory where file is contained
 
 		if os.path.splitext(directory)[1] != ".json":				#Raise error if file is of wrong type
 			raise ValueError("Wrong File Type")
