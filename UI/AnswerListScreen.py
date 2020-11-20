@@ -47,7 +47,7 @@ class AnswerListMenu:
 
 	def printMenu(self):
 		for  i,item in enumerate(self.__menuItems__):
-				self.printPost(item, i)
+				self.printAnswer(item, i)
 
 
 
@@ -65,7 +65,6 @@ class AnswerList:
 		results = collection.find(query)
 		for result in results:
 			answers[result['Id']] = result
-		print(answers)
 		return answers
 
 if __name__ == "__main__":
