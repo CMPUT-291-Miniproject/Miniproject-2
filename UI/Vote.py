@@ -23,9 +23,9 @@ class Vote:
 
 
 	def getUniqueID(collection):
-		results = collection.find_one({}, sort=[('Id', pymongo.DESCENDING)])
-		for result in results:
-			print(result)
+		result = collection.find_one({}, sort=[('Id', pymongo.DESCENDING)])
+		print(result['Id'])
+		
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
 	from SelectedQuestionScreen import SelectedQuestionScreen
