@@ -7,10 +7,14 @@ class SelectedQuestionScreen:
 		usedKeys = ["Id", "Title", "Body", "Tags", "Score", 
 					"ViewCount", "CommentCount", "AnswerCount", 
 					"FavoriteCount", "CreationDate", "LastEditDate",
-					"ContentLicense"] 
+					"ContentLicense"]
 
 		for key in usedKeys:
 			if (key in post):
+				if key == "Score":
+					print("Post Info: \n")
+				if key == "CreationDate":
+					print("Post Date Info: \n")
 				Terminal.printCenter(key + ": " + str(post[key]) + "\n")
 
 		Terminal.printCenter("\n\nMisc Info:\n")
