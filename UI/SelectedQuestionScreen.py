@@ -18,8 +18,8 @@ class SelectedQuestionScreen:
 		Terminal.clear()
 		usedKeys = ["Id", "Title", "Body", "Tags", "Score", 
 					"ViewCount", "CommentCount", "AnswerCount", 
-					"FavoriteCount", "CreationDate", "LastEditDate",
-					"ContentLicense"]
+					"ContentLicense", "FavoriteCount", "CreationDate", 
+					"LastEditDate"]
 
 		Terminal.printCenter("----------Post----------")
 		for key in usedKeys:
