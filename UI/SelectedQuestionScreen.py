@@ -6,7 +6,7 @@ class SelectedQuestionScreen:
 		Terminal.clear
 		for key in post:
 			if (key is not None):
-				Terminal.printCenter(key + ": " + post[key] + "\n\n")
+				Terminal.printCenter(str(key) + ": " + str(post[key]) + "\n\n")
 
 	def printScreen(post):
 		SelectedQuestionScreen.printTitle(post)
