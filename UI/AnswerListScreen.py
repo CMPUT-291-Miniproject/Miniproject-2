@@ -46,7 +46,7 @@ class AnswerListMenu:
 		print(stringToPrint)
 
 	def printMenu(self):
-		for  i,item in enumerate(self.__menuItems__[index:]):
+		for  i,item in enumerate(self.__menuItems__):
 				self.printPost(item, i)
 
 
