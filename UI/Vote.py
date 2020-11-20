@@ -58,11 +58,26 @@ class Vote:
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
 	from SelectedQuestionScreen import SelectedQuestionScreen
+	from AnswerList import AnswerList as listAnswer
+	from SelectedAnswerScreen import SelectedAnswerScreen as selectedAnswer
 
 	search = SearchForQuestionsScreen
 	select = SelectedQuestionScreen
 
+
+
 	post = search.printScreen()
-	if (select.printScreen(post) == 3):
+	selected = select.printScreen(post)
+
+	if (selected == 3):
 		Vote.makeVote(post, '50')
+	if (selected == 4):
+		answer = listAnswer.printScreen(post)
+		if (answer):
+			selected = selectedAnswer.printScreen(answer)
+			if selected == 1:
+				Vote.makeVote(answer)
+				Vote.makeVote(answer, 50)
+				Vote.makeVote(answer, 50) 
+
 
