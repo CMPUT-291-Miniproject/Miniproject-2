@@ -12,7 +12,7 @@ class SelectedQuestionScreen:
 		for key in usedKeys:
 			if (key in post):
 				if key == "Score":
-					Terminal.PrintCenter("Post Info")
+					Terminal.printCenter("Post Info")
 				if key == "CreationDate":
 					Terminal.printCenter("Post Date Info")
 				Terminal.printCenter(key + ": " + str(post[key]) + "\n")
