@@ -39,7 +39,7 @@ class Vote:
 						[{ 'UserId' : userID},
 						{ 'PostId' : post['Id']}] 
 				}
-		print(collection.find_one(query))
+		print(collection.find_one(query) is not None)
 
 		
 if __name__ == "__main__":
