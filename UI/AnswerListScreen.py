@@ -18,7 +18,7 @@ class AnswerListMenu:
 		self.__menuItems__ = []
 		if ('AcceptedAnswerId' in question):
 			acceptedAnswerId = question['AcceptedAnswerId']
-			self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=acceptedAnswerId, Post=posts.pop(acceptedAnswerId)))
+			self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=acceptedAnswerId, Post=answers.pop(acceptedAnswerId)))
 		self.fillMenu(answers)
 
 	def fillMenu(self, posts):
