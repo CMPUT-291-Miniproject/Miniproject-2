@@ -3,9 +3,15 @@ from Terminal import Terminal
 class SelectedQuestionScreen:
 
 	def printKeyTitle(key):
-		string = "----------" + key + "----------" + "\n\n\n"
-		if key == "Title" or key == "Body" or key == "Score" or key == "CreationDate":
-			Terminal.printCenter(string)
+		if key == "Title" or key == "Body":
+			string = "----------" + key + "----------" + "\n\n"
+		if key == "Score":
+			string = "----------" + "Post Data" + "----------" + "\n\n"
+		if key == "CreationDate":
+			string = "----------" + "Dates" + "----------" + "\n\n"
+		else:
+			return None
+		Terminal.printCenter(string)
 
 	def printTitle(post):
 		Terminal.clear()
@@ -15,7 +21,6 @@ class SelectedQuestionScreen:
 					"ContentLicense"]
 
 		Terminal.printCenter("----------Post----------")
-		print("\n"*5)
 		for key in usedKeys:
 			if (key in post):
 				SelectedQuestionScreen.printKeyTitle(key)
