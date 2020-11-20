@@ -16,7 +16,7 @@ class Vote:
 		
 		if userID:
 			if (not Vote.userVoted(votesCollection, post, userID)):
-				voteID = Vote.otherGetId(votesCollection)
+				voteID = Vote.getUniqueID(votesCollection)
 				voteDict = {voteID, postID, voteTypeID, userID, creationDate}
 				print(voteDict)
 		else:
