@@ -52,7 +52,7 @@ class Vote:
 	def updatePostVotes(post, collection):
 		updatedScore = post['Score'] + 1
 		updateQuery = { '$set' : { 'Score' : updatedScore } }
-		collection.update_one(post, updateQuery)
+		collection.update_one({'Id' : post['Id']}, updateQuery)
 
 		
 if __name__ == "__main__":
