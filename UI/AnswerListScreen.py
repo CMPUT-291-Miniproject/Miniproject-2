@@ -15,7 +15,7 @@ class AnswerListScreen:
 
 class AnswerListMenu:
 	def __init__(self, answers, question):
-		self.__question__ question
+		self.__question__ = question
 		self.__menuItems__ = []
 		if ('AcceptedAnswerId' in question):
 			acceptedAnswerId = question['AcceptedAnswerId']
