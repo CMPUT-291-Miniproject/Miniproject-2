@@ -3,9 +3,16 @@ from Terminal import Terminal
 class SelectedQuestionScreen:
 
 	def printTitle(post):
-		Terminal.clear
+		Terminal.clear()
+		usedKeys = ["Id", "Title", "Body", "Tags", "CreationDate"] 
+
+		for key in usedKeys:
+			if (post.has_key(key)):
+				Terminal.printCenter(key + ": " + str(post[key]) + "\n\n")
+
+
 		for key in post:
-			if (key is not None):
+			if (key is not None and key not in usedKeys):
 				Terminal.printCenter(str(key) + ": " + str(post[key]) + "\n\n")
 
 	def printScreen(post):
