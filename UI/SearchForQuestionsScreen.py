@@ -118,10 +118,10 @@ class SearchQuestionMenu():
 						print("Input is out of range")
 					else:
 						continueRunning = False
-			except Exception:
-				print("Entered input is invalid!")
-			finally:
-				input("Press Enter to Continue: ")
+				except Exception:
+					print("Entered input is invalid!")
+				finally:
+					input("Press Enter to Continue: ")
 
 
 
