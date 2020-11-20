@@ -9,7 +9,7 @@ class AnswerListScreen:
 	def printScreen(question):
 		answers = AnswerList.getAnswers(question)
 		menu = AnswerListMenu(answers, question)
-		menu.printScreen()
+		return menu.printScreen()
 
 
 
@@ -69,7 +69,7 @@ class AnswerListMenu:
 			finally:
 					input("Press Enter to Continue: ")
 		userInput += -1
-		print(self.__menuItems__[userInput].Post)
+		return self.__menuItems__[userInput].Post
 
 
 class AnswerList:
