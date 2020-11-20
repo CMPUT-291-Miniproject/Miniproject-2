@@ -54,7 +54,7 @@ class AnswerList:
 		answers = {}
 		collection = AnswerList.db['Posts']
 		query = {'$and' : 
-					[ {'ParentId' : question['Id']}},
+					[ {'ParentId' : question['Id']},
 					{ 'PostTypeId' : '2'} ]
 				}
 		results = collection.find(query)
