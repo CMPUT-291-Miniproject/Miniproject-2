@@ -4,7 +4,7 @@ from SelectedQuestionScreen import SelectedQuestionScreen
 from Terminal import Terminal
 
 class AnswerListScreen:
-	MenuOption = collections.namedtuple('Post', 'PostID Post' 'Accepted')
+	MenuOption = collections.namedtuple('Post', 'PostID' 'Accepted')
 
 	def printScreen(question):
 		answers = AnswerList.getAnswers(question)
