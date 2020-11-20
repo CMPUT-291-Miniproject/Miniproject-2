@@ -41,7 +41,7 @@ if __name__ == "__main__":
 	listAnswer = AnswerListScreen
 
 	question = search.printScreen()
-	if (SelectedQuestionScreen.printScreen(question) == 3):
+	if (SelectedQuestionScreen.printScreen(question) == 2):
 		answer = listAnswer.printScreen()
 		if (answer):
 			SelectedAnswerScreen.print(answer)
