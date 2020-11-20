@@ -41,7 +41,6 @@ class SelectedQuestionScreen:
 		MAX_MENU_OPTION = 4
 		MIN_MENU_OPTION = 1
 		invalidInput = True
-		#ERROR SOMEWHERE HERE
 		while invalidInput:
 			SelectedQuestionScreen.printTitle(post)
 			SelectedQuestionScreen.printMenu()
@@ -51,6 +50,7 @@ class SelectedQuestionScreen:
 				return None
 
 			try:
+				print("HERE!")
 				int(userInput)
 				if userInput > MAX_MENU_OPTION or userInput < MIN_MENU_OPTION:
 					print("Selection out of range!")
