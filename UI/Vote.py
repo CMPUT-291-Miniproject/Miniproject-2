@@ -19,6 +19,8 @@ class Vote:
 				voteID = Vote.getUniqueID(votesCollection)
 				voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'UserId' : userID, 'CreationDate' : creationDate}
 			else:
+				print("You have already voted on this post!")
+				input("Press Enter to Continue: ")
 				return False
 		else:
 			voteID = Vote.getUniqueID(votesCollection)
@@ -26,6 +28,8 @@ class Vote:
 		
 		votesCollection.insert_one(voteDict)
 		Vote.updatePostVotes(post, postCollection)
+		print("Vote Successfully added!")
+		input("Press Enter to Continue: ")
 		return True
 
 
@@ -48,7 +52,7 @@ class Vote:
 	def updatePostVotes(post, collection):
 		updatedScore = post['Score'] + 1
 		updateQuery = { '$set' : { 'Score' : updatedScore } }
-		collection.update_one(selectedPost.Post, updateQuery)
+		collection.update_one(post, updateQuery)
 
 		
 if __name__ == "__main__":
