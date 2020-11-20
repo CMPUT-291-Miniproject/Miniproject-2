@@ -35,7 +35,7 @@ class SelectedQuestionScreen:
 	def printMenu():
 		menuOptions = ["Answer Question","List Answers","Vote","Exit"]
 		for i,option in enumerate(menuOptions):
-			print(str(i) + ". " + option)
+			print(str(i+1) + ". " + option)
 
 	def printScreen(post):
 		MAX_MENU_OPTION = 5
