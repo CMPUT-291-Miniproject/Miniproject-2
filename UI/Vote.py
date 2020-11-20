@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
 	if (selected == 3):
 		Vote.makeVote(post, '50')
-	if (selected == 4):
+	if (selected == 2):
 		answer = listAnswer.printScreen(post)
 		if (answer):
 			selected = selectedAnswer.printScreen(answer)
