@@ -78,11 +78,11 @@ class SearchQuestionMenu():
 		print(stringToPrint)
 
 	def printMenu(self, index):
-		if index + POSTS_PER_PAGE > len(self.__menuItems__[index:]):
+		if index + SearchQuestionMenu.POSTS_PER_PAGE > len(self.__menuItems__[index:]):
 			for  i,item in enumerate(self.__menuItems__[index:]):
 				self.printPost(item, i)
 		else:
-			for i in range (POSTS_PER_PAGE):
+			for i in range (SearchQuestionMenu.POSTS_PER_PAGE):
 				self.printPost(self.__menuItems__[i+index], i)
 
 	def printScreen(self):
@@ -94,21 +94,21 @@ class SearchQuestionMenu():
 			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
 				return None
 			elif userInput.upper() == "NEXT":
-				if index + POSTS_PER_PAGE < len(self.__menuItems__):
-					index += POSTS_PER_PAGE
+				if index + SearchQuestionMenu.POSTS_PER_PAGE < len(self.__menuItems__):
+					index += SearchQuestionMenu.POSTS_PER_PAGE
 				else:
 					print("You are currently on the last page!")
 					input("Type Enter to Continue: ")
 			elif userInput.upper() == "PREV":
-				if index >= POSTS_PER_PAGE:
-					index +=  POSTS_PER_PAGE
+				if index >= SearchQuestionMenu.POSTS_PER_PAGE:
+					index +=  SearchQuestionMenu.POSTS_PER_PAGE
 				else:
 					print("You are currently on the first page!")
 					input("Press Enter to Continue: ")
 			else:
 				try:
 					userInput = int(userInput)
-					if (userInput < 1 or userInput > POSTS_PER_PAGE or userInput > len(self.__menuItems__[index:])):
+					if (userInput < 1 or userInput > SearchQuestionMenu.POSTS_PER_PAGE or userInput > len(self.__menuItems__[index:])):
 						print("Input is out of range")
 					else:
 						continueRunning = False
