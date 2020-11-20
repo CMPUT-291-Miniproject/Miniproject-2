@@ -23,9 +23,8 @@ class Vote:
 
 
 	def getUniqueID(collection):
-		results = collection.find({}).sort({'Id':-1})
-		for result in results:
-			print(result['Id'])
+		result = collection.find().sort({'Id':-1}).limit(1)
+		print(result['Id'])
 		
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
