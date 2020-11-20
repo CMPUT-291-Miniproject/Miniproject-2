@@ -58,7 +58,7 @@ class Vote:
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
 	from SelectedQuestionScreen import SelectedQuestionScreen
-	from AnswerList import AnswerList as listAnswer
+	from AnswerListScreen import AnswerListScreen as listAnswer
 	from SelectedAnswerScreen import SelectedAnswerScreen as selectedAnswer
 
 	search = SearchForQuestionsScreen
