@@ -8,16 +8,18 @@ class AnswerListScreen:
 
 	def printScreen(question):
 		answers = AnswerList.getAnswers(question)
-		menu = AnswerListMenu(answers, question['AcceptedAnswerId'])
+		menu = AnswerListMenu(answers, question)
 		menu.printAnswer()
 
 
 
 class AnswerListMenu:
-	def __init__(self, posts, acceptedAnswerId):
+	def __init__(self, answers, question):
 		self.__menuItems__ = []
-		self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=acceptedAnswerId, Post=posts.pop(acceptedAnswerId)))
-		self.fillMenu(posts)
+		if ('AcceptedAnswerId' in question):
+			acceptedAnswerId = question['AcceptedAnswerId']
+			self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=acceptedAnswerId, Post=posts.pop(acceptedAnswerId)))
+		self.fillMenu(answers)
 
 	def fillMenu(self, posts):
 		for key in posts:
