@@ -86,7 +86,7 @@ class SearchQuestionMenu():
 				self.printPost(item, i)
 		else:
 			for i in range(100):
-				self.printPost(self.__menuItems__[i+index])
+				self.printPost(self.__menuItems__[i+index], i)
 
 
 			
