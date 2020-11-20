@@ -41,6 +41,7 @@ class SelectedQuestionScreen:
 		MAX_MENU_OPTION = 4
 		MIN_MENU_OPTION = 1
 		invalidInput = True
+		#ERROR SOMEWHERE HERE
 		while invalidInput:
 			SelectedQuestionScreen.printTitle(post)
 			SelectedQuestionScreen.printMenu()
