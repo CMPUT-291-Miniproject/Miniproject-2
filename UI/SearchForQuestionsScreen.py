@@ -94,7 +94,7 @@ class SearchQuestionMenu():
 			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
 				return None
 			elif userInput.upper() == "NEXT":
-				if index POSTS_PER_PAGE < len(self.__menuItems__):
+				if index + POSTS_PER_PAGE < len(self.__menuItems__):
 					index += POSTS_PER_PAGE
 				else:
 					print("You are currently on the last page!")
