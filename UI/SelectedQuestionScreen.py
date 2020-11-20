@@ -27,7 +27,7 @@ class SelectedQuestionScreen:
 				SelectedQuestionScreen.printKeyTitle(key)
 				Terminal.printCenter(key + ": " + str(post[key]) + "\n")
 
-		Terminal.printCenter("\n\nMisc Info:\n")
+		Terminal.printCenter("----------Misc Info----------")
 		for key in post:
 			if (key is not None and key not in usedKeys and key != "_id"):
 				Terminal.printCenter(str(key) + ": " + str(post[key]) + "\n\n")
