@@ -1,4 +1,4 @@
-from Terminal import Terminal
+from Interface.Terminal import Terminal
 from Post import Post
 
 class PostScreen:
@@ -8,13 +8,11 @@ class PostScreen:
 	Uses the framework from PostQuestion.py to enter the question into the database, and Terminal for extra UI commands.
 	"""
 	
-	def __init__(self, terminal, uid):
+	def __init__(self, uid=None):
 		"""
 		Creates an instance of PostQuestionScreen, which is used in Main.py (subject to change)
 		
 		Parameters:
-			terminal: Terminal Object. Instance of the terminal screen used to display information. Essentially used for easily clearing a screen of text.
-			dbName: string. File name of the database. Name is subject to change on demo, therefore parsed at runtime as a sommand line arguement.
 			uid: User ID of the poster. Needed for adding question to database. 
 			
 		Additional Init. Variables:
@@ -22,8 +20,8 @@ class PostScreen:
 			
 		Returns: N/A
 		"""
-		self.__terminal__ = terminal
-		self.__body__ = Post(terminal.getDBName(), uid)
+		
+		self.__body__ = Post('291db', uid)
 	
 
 	def printQuestionScreen(self):
@@ -38,9 +36,9 @@ class PostScreen:
 		
 		#Main input loop, runs until user input is valid, or they quit out of the menue.
 		while repeat:
-			self.__terminal__.clear()
-			self.__terminal__.printCenter("---POSTING QUESTION---")
-			self.__terminal__.printCenter("To go back without posting a question, input BACK during any prompt.")
+			Terminal.clear()
+			Terminal.printCenter("---POSTING QUESTION---")
+			Terminal.printCenter("To go back without posting a question, input BACK during any prompt.")
 			print('\n')
 			
 			#get title of post
@@ -55,28 +53,44 @@ class PostScreen:
 			if body.lower().strip() == "back":
 				return
 				
+			print('\n')
+			
 			#get tags of the post
 			tag_input = input("Please enter the tags for this post, delimited by commas: ")
-			tag_input = tag_input.lower().strip()
+			
+			#Formats the tag input for addition to the db. tags is the edited version of tag_input.
+			tags = tag_input.lower().strip()
 			if tags == "back":
 				return
-			elif len(tag_input) == 0:
+			tags = tags.split(',')
+			if len(tag_input) == 0:
 				tags = None
 			else:
-				tags = tag_input.split(',')
+				final_tags = []
 				for i in range(len(tags)):
-					tags[i] = tags[i].strip()
-			
+					
+					prev_tag = tags[i].strip()
+					new_tag = ""
+					for character in prev_tag:
+						if character.isspace():
+							new_tag += "-"
+						else:
+							new_tag += character
+
+					if len(new_tag) > 0:
+						final_tags.append(new_tag)			
 				
 			#input validation loop. breaks if input is Y or N.
 			while True:
-				self.__terminal__.clear()
-				self.__terminal__.printCenter("Title: "+title)
-				self.__terminal__.printCenter("Body: "+body)
+				Terminal.clear()
+				#prints the title and body
+				Terminal.printCenter("Title: "+title)
+				Terminal.printCenter("Body: "+body)
+				#prints the tags if applicable
 				if tags:
-					self.__terminal__.printCenter("Tags: "+tag_input)
+					Terminal.printCenter("Tags: "+tag_input)
 				else:
-					self.__terminal__.printCenter("Tags: N/A")
+					Terminal.printCenter("Tags: N/A")
 				print("\n")
 			
 				choice = input("Is this what you want to post? (Y or N): ")
@@ -94,8 +108,7 @@ class PostScreen:
 					input("Invalid input. Press enter to continue.")
 				
 		#adds the question to the database and alerts the user that the operation was a success.
-		#TODO: fix add_post so that tags are included
-		self.__body__.add_post(title, body, tags)
+		self.__body__.add_post(title, body, final_tags)
 		input("Your question has been posted. Press enter to return back to the main menue.")
 		return
 					
@@ -107,6 +120,8 @@ class PostScreen:
 		
 		Returns: N/A
 		"""
+		#TODO:
+		
 		repeat = True
 		
 		#Main input loop, runs until user input is valid, or they quit out of the menue.
@@ -168,5 +183,5 @@ class PostScreen:
 
 if __name__ == "__main__":
 	
-	postQuestionScreen = PostQuestionScreen(Terminal(), 'Miniproject_1.db')
-	postQuestionScreen.printScreen()
+	postQuestionScreen = PostScreen()
+	postQuestionScreen.printQuestionScreen()
