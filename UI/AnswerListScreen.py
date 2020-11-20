@@ -4,7 +4,7 @@ from SelectedQuestionScreen import SelectedQuestionScreen
 from Terminal import Terminal
 
 class AnswerListScreen:
-	MenuOption = collections.namedtuple('Post', 'PostID Post' )
+	MenuOption = collections.namedtuple('Post', 'PostID Post' 'Accepted')
 
 	def printScreen(question):
 		answers = AnswerList.getAnswers(question)
@@ -18,19 +18,18 @@ class AnswerListMenu:
 		self.__question__ = question
 		self.__menuItems__ = []
 		if ('AcceptedAnswerId' in question):
-			print("THERE IS AN ACCEPTED ANSWER")
 			acceptedAnswerId = question['AcceptedAnswerId']
-			self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=acceptedAnswerId, Post=answers.pop(acceptedAnswerId)))
+			self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=acceptedAnswerId, Post=answers.pop(acceptedAnswerId)), Accepted=True)
 		self.fillMenu(answers)
 
 	def fillMenu(self, posts):
 		for key in posts:
 			if key is not None:
-				self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=key, Post=posts[key]))
+				self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=key, Post=posts[key]), Accepted=False)
 
 	def printAnswer(self, item, index, accepted = False):
 		string = ""
-		if accepted:
+		if item.Accepted:
 			string += "*** "
 		string += str(index + 1) + ". " + "\n"
 
