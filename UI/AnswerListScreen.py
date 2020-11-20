@@ -96,4 +96,4 @@ if __name__ == "__main__":
 
 	post = search.printScreen()
 	if select.printScreen(post) == 2:
-		AnswerListScreen.printScreen(post)
+		print(AnswerListScreen.printScreen(post))
