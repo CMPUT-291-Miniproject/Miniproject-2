@@ -18,11 +18,10 @@ class Vote:
 			if (not Vote.userVoted(votesCollection, post, userID)):
 				voteID = Vote.getUniqueID(votesCollection)
 				voteDict = {voteID, postID, voteTypeID, userID, creationDate}
-				print(voteDict)
 		else:
 			voteID = Vote.getUniqueID(votesCollection)
 			voteDict = {voteID, postID, voteTypeId, creationDate}
-			print(voteDict)
+		print(voteDict)
 
 
 	def getUniqueID(collection):
