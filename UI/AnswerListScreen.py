@@ -25,7 +25,7 @@ class AnswerListMenu:
 	def fillMenu(self, posts):
 		for key in posts:
 			if key is not None:
-				self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=key, Post=posts[key], Accepted=False)
+				self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=key, Post=posts[key], Accepted=False))
 
 	def printAnswer(self, item, index, accepted = False):
 		string = ""
