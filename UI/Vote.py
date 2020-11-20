@@ -5,7 +5,7 @@ class Vote:
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 	db = client[Terminal.getDBName()]
 
-	def makeVote(userID=None, post):
+	def makeVote(post, userID=None):
 		postCollection = Vote.db['Posts']
 		votesCollection = Vote.db['Votes']
 
