@@ -23,7 +23,7 @@ class Vote:
 
 
 	def getUniqueID(collection):
-		result = collection.find({}).sort({'Id' : -1})
+		result = collection.find_one({}, sort=[('Id', pymongo.DESCENDING)])
 		print(result[0])
 
 if __name__ == "__main__":
