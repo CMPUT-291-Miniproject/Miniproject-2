@@ -28,7 +28,7 @@ class Vote:
 		for result in results:
 			if int(result['Id']) > maxId:
 				maxId = int(result['Id'])
-		print(str(maxId + 1))
+		return str(maxId + 1)
 		
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
