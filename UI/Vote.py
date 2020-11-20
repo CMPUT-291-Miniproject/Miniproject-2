@@ -15,7 +15,7 @@ class Vote:
 		creationDate = str(datetime.datetime.utcnow().isoformat())
 		
 		if userID:
-			if (!Vote.userVoted(votesCollection, post, userID)):
+			if (not Vote.userVoted(votesCollection, post, userID)):
 				voteID = Vote.getUniqueID(votesCollection)
 				voteDict = {voteID, postID, voteTypeID, userID, creationDate}
 				print(voteDict)
