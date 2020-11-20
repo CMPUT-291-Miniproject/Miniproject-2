@@ -26,35 +26,13 @@ class Vote:
 
 
 	def getUniqueID(collection):
-		maxId = 0
-		results = collection.find();
-		for result in results:
-			if int(result['Id']) > maxId:
-				maxId = int(result['Id'])
-		return str(maxId + 1)
+		maxId = 1
+		query = {'Id':str(maxId)}
+		while collection.find_one(query):
+			maxId *= 2
+		while not collection.find_one(query):
+			maxId += -1
 
-	def otherGetId(collection):
-		min,max = Vote.getMaxMin()
-		while min <= max-1:
-			mid = (max + min)//2
-			if collection.find_one({'Id' : str(mid)}) is None:
-				max = mid
-			else:
-				min = mid
-
-		return max
-
-
-
-	def getMaxMin(collection):
-    	maxNum = 1
-    	minNum = 1
-    	while  collection.find_one({'Id': str(maxNum)}) is not None:
-        	minNum = maxNum
-        	maxNum *= 2
-        return (minNum, maxNum)
-    
-    return [minNum, maxNum
 
 	def userVoted(collection, post, userID):
 		query = {'$and' : 
