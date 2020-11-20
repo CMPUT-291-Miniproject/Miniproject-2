@@ -50,8 +50,8 @@ class SelectedQuestionScreen:
 				return None
 
 			try:
-				print("HERE!")
 				int(userInput)
+				print("HERE!")
 				if userInput > MAX_MENU_OPTION or userInput < MIN_MENU_OPTION:
 					print("Selection out of range!")
 				else:
