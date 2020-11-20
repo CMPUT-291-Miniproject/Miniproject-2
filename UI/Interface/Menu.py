@@ -1,3 +1,4 @@
+from Terminal import Terminal
 class Menu:
 	"""
 	Menu is a way for the user to interface with the program.
@@ -6,7 +7,7 @@ class Menu:
 	input on which option they would like to select from said items
 
 	"""
-	def __init__(self, terminal):
+	def __init__(self):
 		"""
 		Creates an instance of Menu
 
@@ -17,11 +18,10 @@ class Menu:
 		Returns:
 			An instance of Menu
 		"""
-		self.__terminal__ = terminal
 		self.__menuItems__ = []
 		self.__length__ = 0
 
-		self.__terminal__.clear()
+		Terminal.clear()
 
 	def addMenuItem(self, string):
 		"""
@@ -98,11 +98,10 @@ class Menu:
 						return None
 				except Exception:
 					input("Invalid input, press enter to continue: ") 
-			self.__terminal__.clear()
+			Terminal.clear()
 
 if __name__ == "__main__":
-	from Terminal import Terminal
-	menu = Menu(Terminal())
+	menu = Menu()
 	menu.addMenuItem("Just")
 	menu.addMenuItem("A")
 	menu.addMenuItem("Test")
