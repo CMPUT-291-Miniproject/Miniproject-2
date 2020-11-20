@@ -65,8 +65,8 @@ class AnswerListMenu:
 					print("Entered input is invalid!")
 			finally:
 					input("Press Enter to Continue: ")
-			userInput += -1
-			print(self.__menuItems__[userInput].Post)
+		userInput += -1
+		print(self.__menuItems__[userInput].Post)
 
 
 class AnswerList:
