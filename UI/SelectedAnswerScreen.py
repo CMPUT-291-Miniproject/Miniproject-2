@@ -1,19 +1,19 @@
 from Terminal import Terminal
 from Interface.PostPrinter import PostPrinter
 
-class SelectedQuestionScreen:
+class SelectedAnswerScreen:
 	def printMenu():
-		menuOptions = ["Answer Question","List Answers","Vote","Exit"]
+		menuOptions = ["Vote","Exit"]
 		for i,option in enumerate(menuOptions):
 			print(str(i+1) + ". " + option)
 
 	def printScreen(post):
-		MAX_MENU_OPTION = 4
+		MAX_MENU_OPTION = 2
 		MIN_MENU_OPTION = 1
 		invalidInput = True
 		while invalidInput:
 			PostPrinter.printTitle(post)
-			SelectedQuestionScreen.printMenu()
+			SelectedAnswerScreen.printMenu()
 
 			userInput = input("Select Option: ")
 			if userInput.upper() == "EXIT" or userInput.upper() == "QUIT":
@@ -31,14 +31,17 @@ class SelectedQuestionScreen:
 				input("Press Enter to Continue: ")
 		return userInput
 
-		
-
-		
-
-
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
+	from SelectedQuestionScreen import SelectedQuestionScreen
+	from AnswerListScreen import AnswerListScreen
 
-	sScreen = SearchForQuestionsScreen
-	post = sScreen.printScreen()
-	SelectedQuestionScreen.printScreen(post)
+	search = SearchForQuestionsScreen
+	select = SelectedQuestionScreen
+	listAnswer = AnswerListScreen
+
+	question = search.printScreen()
+	if (SelectedQuestionScreen.printScreen(question) == 2):
+		answer = listAnswer.printScreen(question)
+		if (answer):
+			SelectedAnswerScreen.printScreen(answer)

@@ -41,9 +41,6 @@ class SearchForQuestionsScreen:
 		searchKeys = SearchForQuestionsScreen.getParsedKeywords()
 		return SearchForQuestions.getQuestions(searchKeys)
 
-	def printTitleMenu():
-		Terminal.printCenter("ENTER ACTUAL TEXT LATER")
-
 	def printScreenMenu(posts):
 		searchQuestionMenu = SearchQuestionMenu(posts)
 		post = searchQuestionMenu.printScreen()
