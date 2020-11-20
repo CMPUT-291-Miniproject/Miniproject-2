@@ -18,7 +18,7 @@ class SelectedQuestionScreen:
 		print("\n"*5)
 		for key in usedKeys:
 			if (key in post):
-				printKeyTitle(key)
+				SelectedQuestionScreen.printKeyTitle(key)
 				Terminal.printCenter(key + ": " + str(post[key]) + "\n")
 
 		Terminal.printCenter("\n\nMisc Info:\n")
