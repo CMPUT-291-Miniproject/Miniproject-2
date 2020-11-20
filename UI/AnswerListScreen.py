@@ -18,6 +18,7 @@ class AnswerListMenu:
 		self.__question__ = question
 		self.__menuItems__ = []
 		if ('AcceptedAnswerId' in question):
+			print("THERE IS AN ACCEPTED ANSWER")
 			acceptedAnswerId = question['AcceptedAnswerId']
 			self.__menuItems__.append(AnswerListScreen.MenuOption(PostID=acceptedAnswerId, Post=answers.pop(acceptedAnswerId)))
 		self.fillMenu(answers)
