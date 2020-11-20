@@ -23,7 +23,7 @@ class Vote:
 
 
 	def getUniqueID(collection):
-		result = collection.find({}).sort({'Id' : -1)
+		result = collection.find({}).sort({'Id' : -1})
 		print(result[0])
 
 if __name__ == "__main__":
