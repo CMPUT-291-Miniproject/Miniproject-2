@@ -3,7 +3,7 @@ from Terminal import Terminal
 class SelectedQuestionScreen:
 
 	def printKeyTitle(key):
-		if key == "Title" or key == "Body":
+		if key == "Title" or key == "Body" or key == "Tags":
 			string = "----------" + key + "----------" + "\n\n"
 			Terminal.printCenter(string)
 		if key == "Score":
@@ -18,7 +18,7 @@ class SelectedQuestionScreen:
 		Terminal.clear()
 		usedKeys = ["Id", "Title", "Body", "Tags", "Score", 
 					"ViewCount", "CommentCount", "AnswerCount", 
-					"ContentLicense", "FavoriteCount", "CreationDate", 
+					"FavoriteCount", "ContentLicense","CreationDate", 
 					"LastEditDate"]
 
 		Terminal.printCenter("----------Post----------")
