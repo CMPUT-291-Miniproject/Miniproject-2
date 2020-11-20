@@ -52,7 +52,7 @@ class AnswerListMenu:
 		invalidInput = True
 		while invalidInput:
 			Terminal.clear()
-			SelectedQuestionScreen.printTitle(self.__question__)
+			PostPrinter.printTitle(self.__question__)
 			print("\n")
 			self.printMenu()
 			userInput = input("Enter Selection: ")
