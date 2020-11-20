@@ -82,7 +82,7 @@ class SearchQuestionMenu():
 			for  i,item in enumerate(self.__menuItems__[index:]):
 				self.printPost(item, i)
 		else:
-			for i in range POSTS_PER_PAGE):
+			for i in range (POSTS_PER_PAGE):
 				self.printPost(self.__menuItems__[i+index], i)
 
 	def printScreen(self):
