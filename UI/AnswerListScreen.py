@@ -28,12 +28,9 @@ class AnswerListMenu:
 
 	def printAnswer(self, item, index, accepted = False):
 		string = ""
-		string += str(index) + ". \n"
-
 		if accepted:
-			string += "Title: *" + item.Post['Title'] + " *" + "\n"
-		else:
-			string += "Title: " + item.Post['Title'] + "\n"
+			string += "*** "
+		string += str(index) + ". " + "\n"
 
 		if len(answer['Body']) > 80:
 			string += item.Post['Body'][:80] + "\n"
