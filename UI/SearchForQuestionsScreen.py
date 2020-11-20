@@ -77,7 +77,6 @@ class SearchQuestionMenu():
 
 
 	def printMenu(self):
-		maxTitleLength = self.getMaxTitleLength()
 		for i,item in enumerate(self.__menuItems__):
 			self.printPost(item)
 			
