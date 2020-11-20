@@ -65,16 +65,15 @@ class SearchQuestionMenu():
 				self.__menuItems__.append(SearchForQuestionsScreen.MenuOption(PostID=key, Post=posts[key]))
 
 	def printPost(self, item):
-		titleLenDiff = len(item.Post['Title'])
-			stringToPrint = ""
+		stringToPrint = ""
 
-			stringToPrint += str(i+1) + ". "
-			stringToPrint += item.Post['Title'] + " " + "|"
-			stringToPrint += item.Post['CreationDate'] + "|"
-			stringToPrint += str(item.Post['Score']) + "   |"
-			stringToPrint += str(item.Post['AnswerCount']) + "\n"
+		stringToPrint += str(i+1) + ". "
+		stringToPrint += item.Post['Title'] + " " + "|"
+		stringToPrint += item.Post['CreationDate'] + "|"
+		stringToPrint += str(item.Post['Score']) + "   |"
+		stringToPrint += str(item.Post['AnswerCount']) + "\n"
 
-			print(stringToPrint)
+		print(stringToPrint)
 
 
 	def printMenu(self):
@@ -115,16 +114,6 @@ class SearchQuestionMenu():
 
 
 		return selectedPost.Post
-
-
-	def getMaxTitleLength(self):
-		maxItemLength = 0
-		for item in self.__menuItems__:
-			temp = len(item.Post['Title'])
-			if temp > maxItemLength:
-				maxItemLength = temp
-		return maxItemLength
-
 		
 
 class SearchForQuestions:
