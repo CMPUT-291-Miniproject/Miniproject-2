@@ -64,7 +64,7 @@ class SearchQuestionMenu():
 			if key is not None:
 				self.__menuItems__.append(SearchForQuestionsScreen.MenuOption(PostID=key, Post=posts[key]))
 
-	def printPost(self, item):
+	def printPost(self, item, index):
 		stringToPrint = ""
 
 		stringToPrint += str(i+1) + ". "
@@ -78,7 +78,7 @@ class SearchQuestionMenu():
 
 	def printMenu(self):
 		for i,item in enumerate(self.__menuItems__):
-			self.printPost(item)
+			self.printPost(item, i)
 			
 	
 	def printScreen(self):
