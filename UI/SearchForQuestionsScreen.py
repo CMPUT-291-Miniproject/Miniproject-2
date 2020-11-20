@@ -78,7 +78,7 @@ class SearchQuestionMenu():
 		print(stringToPrint)
 
 	def printMenu(self, index):
-		if index POSTS_PER_PAGE > len(self.__menuItems__[index:]):
+		if index + POSTS_PER_PAGE > len(self.__menuItems__[index:]):
 			for  i,item in enumerate(self.__menuItems__[index:]):
 				self.printPost(item, i)
 		else:
