@@ -27,7 +27,7 @@ class Vote:
 		results = collection.find();
 		for result in results:
 			if int(result['Id']) > maxId:
-				maxId = int(resultMaxId)
+				maxId = int(result['Id'])
 		print(maxId)
 		
 if __name__ == "__main__":
