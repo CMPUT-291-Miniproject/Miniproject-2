@@ -23,8 +23,12 @@ class Vote:
 
 
 	def getUniqueID(collection):
-		result = collection.find().sort([('Id', -1)]).limit(1)
-		print(result[0])
+		maxId = 0
+		results = collection.find();
+		for result in results:
+			if int(result['Id']) > maxId:
+				maxId = int(resultMaxId)
+		print(maxId)
 		
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
