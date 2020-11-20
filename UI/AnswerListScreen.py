@@ -1,6 +1,8 @@
 import pymongo
 import collections
 
+from Terminal import Terminal
+
 class AnswerListScreen:
 	MenuOption = collections.namedtuple('Post', 'PostID Post' )
 
