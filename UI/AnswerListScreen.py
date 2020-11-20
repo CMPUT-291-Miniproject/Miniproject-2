@@ -38,9 +38,9 @@ class AnswerListMenu:
 			string += item.Post['Body'] + "\n"
 
 		string += "CreationDate: " + item.Post['CreationDate'] + "\n"
-		stringToPrint += "Score: " + str(item.Post['Score'])
+		string += "Score: " + str(item.Post['Score'])
 
-		print(stringToPrint)
+		print(string)
 
 	def printMenu(self):
 		for  i,item in enumerate(self.__menuItems__):
