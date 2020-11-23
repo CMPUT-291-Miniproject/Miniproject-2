@@ -9,18 +9,16 @@ class MainMenuScreen:
 	as well as handling the selection of an action within
 	the program
 	"""
-	def __init__(self, terminal):
+	def __init__(self):
 		"""
 		Creates an instance of MainMenuScreen
 
 		Parameters:
-			terminal:
-				A Terminal object that allows the module to interface
-				with the OS terminal
+			N/A
 		Returns:
 			An instance of MainMenuScreen
 		"""
-		self.__menu__ = Menu(terminal)
+		self.__menu__ = Menu()
 	
 		self.__menu__.addMenuItem("Post a question")
 		self.__menu__.addMenuItem("Search for posts")
@@ -34,6 +32,6 @@ class MainMenuScreen:
 		return self.__menu__.printScreen()
 
 if __name__ == "__main__":
-	from Terminal import Terminal
-	mainMenu = MainMenuScreen(Terminal())
+	from Interface.Terminal import Terminal
+	mainMenu = MainMenuScreen()
 	mainMenu.printScreen()		

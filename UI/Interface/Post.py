@@ -2,10 +2,11 @@ import pymongo
 import string
 import random
 import datetime
+from Terminal import Terminal
 
 class Post:
 	
-	def __init__(self, dbName, uid=None):
+	def __init__(self, uid=None):
 		"""
 		Creates an object that can be used to post a question to the forum.
 		
@@ -15,7 +16,6 @@ class Post:
 			
 		Returns: N/A
 		"""
-		self.__db__ = dbName
 		self.__uid__ = uid
 		
 	def add_post(self, title, body, tags, qpid=None):
@@ -37,7 +37,7 @@ class Post:
 			N/A
 		"""
 		#pid is handled inside, as well as pdate
-		client = pymongo.MongoClient()
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 
 		db = client['291db']
 
@@ -118,7 +118,7 @@ class Post:
 			pid: Integer. The unique ID
 		"""
 		
-		client = pymongo.MongoClient()
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 
 		db = client['291db']
 
@@ -137,9 +137,12 @@ class Post:
 		nums = findMaxAndMin(posts)
 		minNum = nums[0]
 		maxNum = nums[1]
+		
+		"""TESTING
 		print(minNum, maxNum)
 		print(type(minNum), type(maxNum))
 		print("+++++++++++\n")
+		"""
 
 		while True:
 			num = (minNum + maxNum) // 2
@@ -153,17 +156,19 @@ class Post:
 					maxNum = num
 			except:
 				maxNum = num
-			
+				
+			"""TESTING
 			print("Min:", minNum)
 			print("Max:", maxNum)
 			print("Middle:", num)
+			"""
 				
 			if minNum == maxNum or minNum+1 == maxNum:
 				num = maxNum
 				
 				break
 				
-		print("Final:", num)
+		#print("Final:", num)
 		return num
 	
 	def get_tagID(self):
@@ -176,7 +181,7 @@ class Post:
 			tagID: Integer. Unique ID for the tag
 		"""
 		
-		client = pymongo.MongoClient()
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 
 		db = client['291db']
 
@@ -195,9 +200,11 @@ class Post:
 		nums = findMaxAndMin(tags)
 		minNum = nums[0]
 		maxNum = nums[1]
+		"""TESTING
 		print(minNum, maxNum)
 		print(type(minNum), type(maxNum))
 		print("+++++++++++\n")
+		"""
 
 		while True:
 			num = (minNum + maxNum) // 2
@@ -212,15 +219,17 @@ class Post:
 			except:
 				maxNum = num
 			
+			"""TESTING
 			print("Min", minNum)
 			print(maxNum)
 			print(num)
+			"""
 				
 			if minNum == maxNum or minNum+1 == maxNum:
 				num = maxNum
 				break
 				
-		print("Final tagID:", num)
+		#print("Final tagID:", num)
 		return num
 	
 	def __check_tag__(self, user_tags):
@@ -255,8 +264,7 @@ class Post:
 		
 				
 if __name__ == "__main__":
-	for i in range(1, 100):
-		question = Post("291db", "rtzy")
-		question.add_post("Hockey players should be allowed to cross-check.", "I really hope this works.", ["Hockey"])
-		print("+= {} =+".format(i))
+	
+	question = Post("rtzy")
+	question.add_post("Hockey players should be allowed to cross-check.", "I really hope this works.", ["Hockey"])
 		

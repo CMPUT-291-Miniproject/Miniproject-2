@@ -1,5 +1,5 @@
 from Interface.Terminal import Terminal
-from Post import Post
+from Interface.Post import Post
 
 class PostScreen:
 	"""
@@ -21,7 +21,7 @@ class PostScreen:
 		Returns: N/A
 		"""
 		
-		self.__body__ = Post('291db', uid)
+		self.__body__ = Post(uid)
 	
 
 	def printQuestionScreen(self):
