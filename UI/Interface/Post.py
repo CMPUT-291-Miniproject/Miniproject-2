@@ -2,7 +2,7 @@ import pymongo
 import string
 import random
 import datetime
-from Terminal import Terminal
+from Interface.Terminal import Terminal
 
 class Post:
 	

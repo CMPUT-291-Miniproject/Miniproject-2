@@ -3,6 +3,7 @@ from WelcomeScreen import WelcomeScreen
 from MainMenuScreen import MainMenuScreen
 from PostScreen import PostScreen
 from SearchForQuestionsScreen import SearchForQuestionsScreen
+#from SearchforQuestionsScreen import SearchForQuestionsScreen
 #from Vote import Vote
 
 if __name__ == "__main__":
@@ -47,7 +48,8 @@ if __name__ == "__main__":
 			#search for posts
 			elif menu == 1:				
 				#TODO: alter searching for questions.
-				post = SearchForPostsScreen(terminal).printScreen()				
+				sScreen = SearchForQuestionsScreen
+				post = sScreen.printScreen()			
 
 			#log out of account
 			elif menu == 2:
