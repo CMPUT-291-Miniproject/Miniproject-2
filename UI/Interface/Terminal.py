@@ -35,6 +35,9 @@ class Terminal:
 		return sys.argv[1]
 
 	def getDBName():
+		"""
+		Grabs the db name as per the spec
+		"""
 		return "291db"
 
 if __name__ == "__main__":

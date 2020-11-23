@@ -31,10 +31,19 @@ class Terminal:
 	def getPort():
 		"""
 		Grabs the port assuming it is the first argument given in the command line on start
+
+		Returns:
+			A String object representing the port number
 		"""
 		return sys.argv[1]
 
 	def getDBName():
+		"""
+		Returns the db name as represented in the spec
+
+		Returns:
+			A String object representing the db name
+		"""
 		return "291db"
 
 if __name__ == "__main__":

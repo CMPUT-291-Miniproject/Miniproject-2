@@ -2,10 +2,30 @@ import pymongo
 import datetime
 from Terminal import Terminal
 class Vote:
+	"""
+	Vote is an Interface which allows the user to interact with posts
+	
+	Vote allows the user to upvote posts and handles database updating
+	to represent that
+	"""
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 	db = client[Terminal.getDBName()]
-	#BUG VOTETYPEID IS NOT DEFINED STILL NEED TO INSERT AFTER FINISH
 	def makeVote(post, userID=None):
+		"""
+		Provides the main functionality of Vote
+		Creates a dictionary object representing a vote before inserting it
+		into the vote collection. It then updates the post collections by increasing
+		the number of votes on the given post
+
+		Parameters:
+			post:
+				A Dictionary object representing the selected post from the database
+			userID:
+				A String object whose default value is none which represents the current
+				users ID
+		Returns:
+			A Boolean object representing whether the vote was successfully added to the database
+		"""
 		postCollection = Vote.db['Posts']
 		votesCollection = Vote.db['Votes']
 
@@ -34,6 +54,19 @@ class Vote:
 
 
 	def getUniqueID(collection):
+		"""
+		Gets a unique ID for the vote being created by querying the database for all votes
+		iterating to the last Dictionary object (representing a vote) grabbing it's id and incrementing
+		by one
+
+		Parameters:
+			collection:
+				A pymongo Collection Reference representing the current collection with which
+				we are finding the unique ID for
+
+		Returns:
+			A String object representing a unique ID
+		"""
 		maxId = 0
 		results = collection.find();
 		for result in results:
@@ -43,6 +76,21 @@ class Vote:
 
 
 	def userVoted(collection, post, userID):
+		"""
+		Checks if the current user has voted on this post
+
+		Parameters:
+			collection:
+				A pymongo Collection Reference representing the current collection with which
+				we are finding the unique ID for
+			post:
+				A Dictionary object representing a post currently being voted on
+			userID:
+				A String object representing the current user's ID
+
+		Returns:
+			A Boolean representing whether the current user has voted
+		"""
 		query = {'$and' : 
 						[{ 'UserId' : userID},
 						{ 'PostId' : post['Id']}] 
