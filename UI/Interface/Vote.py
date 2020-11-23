@@ -1,31 +1,83 @@
-import mongopy
+import pymongo
 import datetime
 from Terminal import Terminal
 class Vote:
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 	db = client[Terminal.getDBName()]
-
-	def makeVote(userID=None, post):
+	#BUG VOTETYPEID IS NOT DEFINED STILL NEED TO INSERT AFTER FINISH
+	def makeVote(post, userID=None):
 		postCollection = Vote.db['Posts']
 		votesCollection = Vote.db['Votes']
 
-		voteID = Vote.getUniqueID(votesCollection)
+		
 		postID = post['Id']
-		voteTypeId = '2'
+		voteTypeID = '2'
 		creationDate = str(datetime.datetime.utcnow().isoformat())
 		
 		if userID:
-			voteDict = {voteID, postID, voteTypeID, userID, creationDate}
-			print(voteDict)
+			if (not Vote.userVoted(votesCollection, post, userID)):
+				voteID = Vote.getUniqueID(votesCollection)
+				voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'UserId' : userID, 'CreationDate' : creationDate}
+			else:
+				print("You have already voted on this post!")
+				input("Press Enter to Continue: ")
+				return False
 		else:
-			voteDict = {voteID, postID, voteTypeId, creationDate}
-			print(voteDict)
+			voteID = Vote.getUniqueID(votesCollection)
+			voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'CreationDate' : creationDate}
+		
+		votesCollection.insert_one(voteDict)
+		Vote.updatePostVotes(post, postCollection)
+		print("Vote Successfully added!")
+		input("Press Enter to Continue: ")
+		return True
 
 
 	def getUniqueID(collection):
-		result = collection.find_one(sort=["Id",-1])
-		print(result)
+		maxId = 0
+		results = collection.find();
+		for result in results:
+			if int(result['Id']) > maxId:
+				maxId = int(result['Id'])
+		return str(maxId + 1)
 
+
+	def userVoted(collection, post, userID):
+		query = {'$and' : 
+						[{ 'UserId' : userID},
+						{ 'PostId' : post['Id']}] 
+				}
+		return collection.find_one(query) is not None
+
+	def updatePostVotes(post, collection):
+		updatedScore = post['Score'] + 1
+		updateQuery = { '$set' : { 'Score' : updatedScore } }
+		collection.update_one({'Id' : post['Id']}, updateQuery)
+
+		
 if __name__ == "__main__":
-	import 
+	from SearchForQuestionsScreen import SearchForQuestionsScreen
+	from SelectedQuestionScreen import SelectedQuestionScreen
+	from AnswerListScreen import AnswerListScreen as listAnswer
+	from SelectedAnswerScreen import SelectedAnswerScreen as selectedAnswer
+
+	search = SearchForQuestionsScreen
+	select = SelectedQuestionScreen
+
+
+
+	post = search.printScreen()
+	selected = select.printScreen(post)
+
+	if (selected == 3):
+		Vote.makeVote(post, '50')
+	if (selected == 2):
+		answer = listAnswer.printScreen(post)
+		if (answer):
+			selected = selectedAnswer.printScreen(answer)
+			if selected == 1:
+				Vote.makeVote(answer)
+				Vote.makeVote(answer, 50)
+				Vote.makeVote(answer, 50) 
+
 
