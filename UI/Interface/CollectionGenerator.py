@@ -77,6 +77,7 @@ class FileManager:
 	READ_CONSTANT = "r"	
 	
 	def readJsonFile(fileName):
+<<<<<<< HEAD
 		"""
 		reads json files and returns them as a Dictionary object
 

@@ -2,10 +2,11 @@ import pymongo
 import string
 import random
 import datetime
+from Interface.Terminal import Terminal
 
 class Post:
 	
-	def __init__(self, dbName, uid=None):
+	def __init__(self, uid=None):
 		"""
 		Creates an object that can be used to post a question to the forum.
 		
@@ -15,7 +16,6 @@ class Post:
 			
 		Returns: N/A
 		"""
-		self.__db__ = dbName
 		self.__uid__ = uid
 		
 	def add_post(self, title, body, tags, qpid=None):
@@ -37,7 +37,7 @@ class Post:
 			N/A
 		"""
 		#pid is handled inside, as well as pdate
-		client = pymongo.MongoClient()
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 
 		db = client['291db']
 
@@ -47,9 +47,10 @@ class Post:
 		pid = self.get_pid()
 		
 		#TODO:The provided tags are either inserted to (if they don't exist) or updated (if they do exists) in Tags collection.
-		all_tags = ""
-		for tag in tags:
-			all_tags += "<{}>".format(tag)
+		if tags:
+			all_tags = ""
+			for tag in tags:
+				all_tags += "<{}>".format(tag)
 		
 		"""
 		A unique id should be assigned to the post by your system, the post type id should be set to 1 (to indicate that the post is a question).
@@ -57,35 +58,42 @@ class Post:
 		The quantities Score, ViewCount, AnswerCount, CommentCount, and FavoriteCount are all set to zero and the content license is set to "CC BY-SA 2.5".
 		"""
 		
+		#if the post is a question
 		if qpid is None:
-			post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()), 
-			"Score": 0, "ViewCount": 0, "Body": body, "OwnerUserId": self.__uid__, "Title": title,
-			"Tags": all_tags, "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+			if self.__uid__ is not None:
+				if tags is not None:
+					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()), 
+					"Score": 0, "ViewCount": 0, "Body": body, "OwnerUserId": self.__uid__, "Title": title,
+					"Tags": all_tags, "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+					
+					posts.insert_one(post)
+					self.__check_tag__(tags)
+				else:
+					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()), 
+					"Score": 0, "ViewCount": 0, "Body": body, "OwnerUserId": self.__uid__, "Title": title,
+					 "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+					
+					posts.insert_one(post)
+					
+				
+			else:
+				if tags is not None:
+					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()),
+					 "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
+					"Tags": all_tags, "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+					print(post)
+					
+					posts.insert_one(post)
+					self.__check_tag__(tags)
+					
+				else:
+					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()),
+					 "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
+					 "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+					print(post)
+					
+					posts.insert_one(post)
 			
-			posts.insert_one(post)
-			self.__check_tag__(tags)
-			'''
-			"Id": "400728",
-			"PostTypeId": "1",
-			"CreationDate": "2020-09-06T03:15:37.153",
-			"Score": 0,
-			"ViewCount": 5,
-			"Body": "<p>I have two Google Chrome windows, Window A, and Window B. I have full-screened Window B with <kbd>Cmd+Shift+F</kbd>. But, Window A also becomes fullscreen. When I un-fullscreen Window A with  <kbd>Cmd+Shift+F</kbd>, Window B becomes un-full-screened.</p>\n<p>Is there any way to have one Chrome windows fullscreen and the other one normal?</p>\n",
-			"OwnerUserId": "373815",
-			"LastActivityDate": "2020-09-06T03:15:37.153",
-			"Title": "Chrome fullscreen windows",
-			"Tags": "<macos><google-chrome><fullscreen>",
-			"AnswerCount": 0,
-			"CommentCount": 0,
-			"ContentLicense": "CC BY-SA 4.0"
-			'''
-			
-		else:
-			post = {"ID": pid, "PostTypeId": "1", "CreationDate": "TODO", "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
-			"Tags": all_tags, "AnswerCount": 0, "CommentCount": 0, "ContentLicense": "CC BY-SA 4.0"}
-			
-			posts.insert_one(post)
-		
 	def get_info(self, pid):
 		"""
 		Given a pid, returns the title and body of a question.
@@ -102,17 +110,15 @@ class Post:
 		
 	def get_pid(self):
 		"""
-		Generates a unique post ID, which is checked in the database to verify uniqueness.
+		Generates a unique post ID
 		
 		Parameters: N/A
 		
 		Returns: 
-			pid: 4 character string
+			pid: Integer. The unique ID
 		"""
-		#TODO: get a unique pid.
-		pid = ''
 		
-		client = pymongo.MongoClient()
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 
 		db = client['291db']
 
@@ -131,9 +137,12 @@ class Post:
 		nums = findMaxAndMin(posts)
 		minNum = nums[0]
 		maxNum = nums[1]
+		
+		"""TESTING
 		print(minNum, maxNum)
 		print(type(minNum), type(maxNum))
 		print("+++++++++++\n")
+		"""
 
 		while True:
 			num = (minNum + maxNum) // 2
@@ -147,18 +156,80 @@ class Post:
 					maxNum = num
 			except:
 				maxNum = num
+				
+			"""TESTING
+			print("Min:", minNum)
+			print("Max:", maxNum)
+			print("Middle:", num)
+			"""
+				
+			if minNum == maxNum or minNum+1 == maxNum:
+				num = maxNum
+				
+				break
+				
+		#print("Final:", num)
+		return num
+	
+	def get_tagID(self):
+		"""
+		Generates a unique TagID.
+		
+		Parameters: N/A
+		
+		Returns: 
+			tagID: Integer. Unique ID for the tag
+		"""
+		
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
+
+		db = client['291db']
+
+		tags = db.Tags
+		
+		def findMaxAndMin(collection):
+			maxNum = 1
+			minNum = 1
+			while  collection.find_one({'Id': str(maxNum)}) is not None:
+				minNum = maxNum
+				maxNum *= 2
 			
+			return [minNum, maxNum]
+
+
+		nums = findMaxAndMin(tags)
+		minNum = nums[0]
+		maxNum = nums[1]
+		"""TESTING
+		print(minNum, maxNum)
+		print(type(minNum), type(maxNum))
+		print("+++++++++++\n")
+		"""
+
+		while True:
+			num = (minNum + maxNum) // 2
+			
+			search = tags.find_one({'Id': str(num)})
+			
+			try:
+				if int(search["Id"]) >= minNum:
+					minNum = num
+				else:
+					maxNum = num
+			except:
+				maxNum = num
+			
+			"""TESTING
 			print("Min", minNum)
 			print(maxNum)
 			print(num)
+			"""
 				
 			if minNum == maxNum or minNum+1 == maxNum:
 				num = maxNum
 				break
 				
-		print(num)
-		
-		#something something something
+		#print("Final tagID:", num)
 		return num
 	
 	def __check_tag__(self, user_tags):
@@ -186,13 +257,14 @@ class Post:
 				count = result["Count"]
 				tags.update_one({"TagName": tag}, {'$set':{"Count": count + 1}})
 			else:
-				#TODO: get the unique tag id
-				tig = "123123"
-				tags.insert_one({"Id": tig, "TagName": tag, "Count": 1})
+				
+				tid = self.get_tagID()
+				tags.insert_one({"Id": str(tid), "TagName": tag, "Count": 1})
 		
-		pass
+		
 				
 if __name__ == "__main__":
-	question = Post('Miniproject_1.db')
-	question.add_post("This is a test.", "I really hope this works.")
+	
+	question = Post("rtzy")
+	question.add_post("Hockey players should be allowed to cross-check.", "I really hope this works.", ["Hockey"])
 		
