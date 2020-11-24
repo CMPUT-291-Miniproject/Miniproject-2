@@ -74,9 +74,8 @@ class Vote:
 				"$sort" : {
 					"Id" : pymongo.DESCENDING
 				}
-			}]).limit(1)
-		for result in x:
-			print(result)
+			}])
+		print(x.find_one())
 
 
 	def userVoted(collection, post, userID):
