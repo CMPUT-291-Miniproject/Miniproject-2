@@ -28,7 +28,7 @@ class Vote:
 		"""
 		postCollection = Vote.db['Posts']
 		votesCollection = Vote.db['Votes']
-		votesCollection.create_index({ "Id" : 1 })
+		#votesCollection.create_index({ "Id" : 1 })
 		voteID = Vote.getUniqueID(votesCollection)
 		print(voteID)
 
