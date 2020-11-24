@@ -28,29 +28,32 @@ class Vote:
 		"""
 		postCollection = Vote.db['Posts']
 		votesCollection = Vote.db['Votes']
+		votesCollection.createIndex({ "Id" : 1})
+		voteID = Vote.getUniqueID(votesCollection)
+		print(voteID)
 
 		
 		postID = post['Id']
 		voteTypeID = '2'
 		creationDate = str(datetime.datetime.utcnow().isoformat())
 		
-		if userID:
-			if (not Vote.userVoted(votesCollection, post, userID)):
-				voteID = Vote.getUniqueID(votesCollection)
-				voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'UserId' : userID, 'CreationDate' : creationDate}
-			else:
-				print("You have already voted on this post!")
-				input("Press Enter to Continue: ")
-				return False
-		else:
-			voteID = Vote.getUniqueID(votesCollection)
-			voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'CreationDate' : creationDate}
+		# if userID:
+		# 	if (not Vote.userVoted(votesCollection, post, userID)):
+		# 		voteID = Vote.getUniqueID(votesCollection)
+		# 		voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'UserId' : userID, 'CreationDate' : creationDate}
+		# 	else:
+		# 		print("You have already voted on this post!")
+		# 		input("Press Enter to Continue: ")
+		# 		return False
+		# else:
+		# 	voteID = Vote.getUniqueID(votesCollection)
+		# 	voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'CreationDate' : creationDate}
 		
-		votesCollection.insert_one(voteDict)
-		Vote.updatePostVotes(post, postCollection)
-		print("Vote Successfully added!")
-		input("Press Enter to Continue: ")
-		return True
+		# votesCollection.insert_one(voteDict)
+		# Vote.updatePostVotes(post, postCollection)
+		# print("Vote Successfully added!")
+		# input("Press Enter to Continue: ")
+		# return True
 
 
 	def getUniqueID(collection):
@@ -67,12 +70,7 @@ class Vote:
 		Returns:
 			A String object representing a unique ID
 		"""
-		maxId = 0
-		results = collection.find();
-		for result in results:
-			if int(result['Id']) > maxId:
-				maxId = int(result['Id'])
-		return str(maxId + 1)
+		return collection.find_one(sort=[("Id", pymongo.DESCENDING)])
 
 
 	def userVoted(collection, post, userID):
