@@ -70,7 +70,7 @@ class Vote:
 		Returns:
 			A String object representing a unique ID
 		"""
-		return db.collection.find().sort([{"Id":-1}]).limit(1)
+		return collection.find_one().sort("Id",-1)
 
 
 	def userVoted(collection, post, userID):
