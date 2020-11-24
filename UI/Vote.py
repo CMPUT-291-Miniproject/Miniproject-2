@@ -99,7 +99,7 @@ class Vote:
 
 	def updatePostVotes(post, collection):
 		updatedScore = post['Score'] + 1
-		updateQuery = { '$set' : { 'Score' : updatedScore } }
+		updateQuery = { '$inc' : { 'Score' : 1 } }
 		collection.update_one({'Id' : post['Id']}, updateQuery)
 
 		
