@@ -70,7 +70,8 @@ class Vote:
 			A String object representing a unique ID
 		"""
 		results = collection.aggregate([{"$group": {"_id": "_id", "maxID" : {"$max" : "Id"}}}])
-		print(results)
+		for result in results:
+			print(result)
 
 
 	def userVoted(collection, post, userID):
