@@ -71,7 +71,7 @@ class Vote:
 			A String object representing a unique ID
 		"""
 		results = collection.find_one({}).sort([("Id", 1),]
-		for result in result:
+		for result in results:
 			print(result)
 
 
