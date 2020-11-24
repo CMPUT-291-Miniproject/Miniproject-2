@@ -74,7 +74,7 @@ class Vote:
 				"$sort" : {
 					"Id" : pymongo.DESCENDING
 				}
-			}])
+			}]).limit(1)
 		for result in x:
 			print(result)
 
