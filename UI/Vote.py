@@ -1,6 +1,6 @@
 import pymongo
 import datetime
-from Terminal import Terminal
+from Interface.Terminal import Terminal
 class Vote:
 	"""
 	Vote is an Interface which allows the user to interact with posts
