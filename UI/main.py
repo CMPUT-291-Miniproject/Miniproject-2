@@ -3,8 +3,9 @@ from WelcomeScreen import WelcomeScreen
 from MainMenuScreen import MainMenuScreen
 from PostScreen import PostScreen
 from SearchForQuestionsScreen import SearchForQuestionsScreen
+from SelectedQuestionScreen import SelectedQuestionScreen
 #from SearchforQuestionsScreen import SearchForQuestionsScreen
-#from Vote import Vote
+from Interface.Vote import Vote
 
 if __name__ == "__main__":
 	
@@ -49,7 +50,24 @@ if __name__ == "__main__":
 			elif menu == 1:				
 				#TODO: alter searching for questions.
 				sScreen = SearchForQuestionsScreen
-				post = sScreen.printScreen()			
+				post = sScreen.printScreen()
+			
+				#User choice for options
+				choice = SelectedQuestionScreen.printScreen(post)	
+				
+				if choice == 1:
+					#TODO: post answer
+					PostScreen(uid).printAnswerScreen(post["Id"])
+					pass
+				elif choice == 2:
+					#TODO: list answers
+					pass
+				elif choice == 3:
+					#TODO: vote for the post
+					pass
+				elif choice == 4:
+					#Exit back to main menue
+					pass
 
 			#log out of account
 			elif menu == 2:
