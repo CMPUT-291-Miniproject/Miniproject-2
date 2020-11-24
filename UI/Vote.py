@@ -28,7 +28,6 @@ class Vote:
 		"""
 		postCollection = Vote.db['Posts']
 		votesCollection = Vote.db['Votes']
-		votesCollection.create_index([( "Id", 1)])
 		voteID = Vote.getUniqueID(votesCollection)
 		print(voteID)
 
@@ -70,7 +69,7 @@ class Vote:
 		Returns:
 			A String object representing a unique ID
 		"""
-		results = collection.find_one(sort=[("Id", pymongo.DESCENDING)])
+		results = collection.aggregate([{"$group": {"maxID" : {"$max" : "Id"}}}])
 		print(results)
 
 
