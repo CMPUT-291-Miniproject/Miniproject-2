@@ -11,7 +11,6 @@ class Post:
 		Creates an object that can be used to post a question to the forum.
 		
 		Parameters:
-			dbName: String. The name of the database, needed to connect to said database.
 			uid: User ID of the poster. Needed for adding question to database. 
 			
 		Returns: N/A
@@ -26,27 +25,23 @@ class Post:
 			Title: String. The title of the question.
 			Body: String. The content of the question.
 			Tags: List. List of all tags to add
-			Qpid: optional argument. If included, it's a 4 char string of a question, and the post is an answer.
-				 Otherwise, pid is None and the post is a question.
-		
-		Additional information:
-			UID: 4 char string. Unique to each user, created from registerUser.py.
-			self.__pid__: 4 char string. Unique to each post and created in __get_pid__.
+			Qpid: optional argument. If included, the post is an answer.
+				 Otherwise, qpid is None and the post is a question.
 			
 		Returns:
 			N/A
 		"""
-		#pid is handled inside, as well as pdate
+		#log into db
 		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 
 		db = client['291db']
 
 		posts = db.Posts
 		
-		#TODO: fix unique uid generator
+		#Generates unique pid
 		pid = self.get_pid()
 		
-		#TODO:The provided tags are either inserted to (if they don't exist) or updated (if they do exists) in Tags collection.
+		#Formats the tags for entry into db
 		if tags:
 			all_tags = ""
 			for tag in tags:
@@ -58,9 +53,13 @@ class Post:
 		The quantities Score, ViewCount, AnswerCount, CommentCount, and FavoriteCount are all set to zero and the content license is set to "CC BY-SA 2.5".
 		"""
 		
-		#if the post is a question
+		#if the post is a question, insert the question
 		if qpid is None:
+			
+			#If the uid is given
 			if self.__uid__ is not None:
+				
+				#If the user gives tags
 				if tags is not None:
 					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()), 
 					"Score": 0, "ViewCount": 0, "Body": body, "OwnerUserId": self.__uid__, "Title": title,
@@ -68,6 +67,8 @@ class Post:
 					
 					posts.insert_one(post)
 					self.__check_tag__(tags)
+					
+				#User gives no tags
 				else:
 					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()), 
 					"Score": 0, "ViewCount": 0, "Body": body, "OwnerUserId": self.__uid__, "Title": title,
@@ -75,24 +76,42 @@ class Post:
 					
 					posts.insert_one(post)
 					
+			#No uid is given	
+			else:
+				#Tags are given
+				if tags is not None:
+					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()),
+					 "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
+					"Tags": all_tags, "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+					print(post)
+					
+					posts.insert_one(post)
+					self.__check_tag__(tags)
+					
+				#Tags are not given
+				else:
+					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()),
+					 "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
+					 "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+					print(post)
+					
+					posts.insert_one(post)
+					
+		#Post is an answer
+		else:
+			"""
+			Question action-Answer. The user should be able to answer the question by providing a text. An answer record should be inserted into the database, with body field set to the provided text. A unique id should be assigned to the post by your system, the post type id should be set to 2 (to indicate that the post is an answer), the post creation date should be set to the current date and the owner user id should be set to the user posting it (if a user id is provided). The parent id should be set to the id of the question. The quantities Score and CommentCount are all set to zero and the content license is set to "CC BY-SA 2.5".
+			"""
+			if self.__uid__ is not None:
+				post = {"Id": str(pid), "PostTypeId": "2", "ParentId": qpid, "CreationDate": str(datetime.datetime.utcnow().isoformat()), 
+				"Score": 0, "ViewCount": 0, "Body": body, "OwnerUserId": self.__uid__, 
+				"CommentCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+				posts.insert_one(post)
 				
 			else:
-				if tags is not None:
-					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()),
-					 "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
-					"Tags": all_tags, "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
-					print(post)
-					
-					posts.insert_one(post)
-					self.__check_tag__(tags)
-					
-				else:
-					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()),
-					 "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
-					 "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
-					print(post)
-					
-					posts.insert_one(post)
+				post = {"Id": str(pid), "PostTypeId": "2", "ParentId": qpid, "CreationDate": str(datetime.datetime.utcnow().isoformat()), 
+				"Score": 0, "ViewCount": 0, "Body": body, "CommentCount": 0, "ContentLicense": "CC BY-SA 4.0"}
+				posts.insert_one(post)
 			
 	def get_info(self, pid):
 		"""
@@ -104,8 +123,15 @@ class Post:
 		Returns:
 			Tuple of title and body of post, both of which are strings.
 		"""
-		#TODO
-		pass
+		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
+
+		db = client['291db']
+
+		posts = db.Posts
+		
+		post = posts.find_one({"Id": pid})
+		
+		return [post["Title"], post["Body"]]
 		
 		
 	def get_pid(self):
