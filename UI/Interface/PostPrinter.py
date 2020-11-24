@@ -17,15 +17,15 @@ class PostPrinter:
 			key:
 				A String object representing a key of the dictionary
 		"""
-			if key == "Title" or key == "Body" or key == "Tags":
-				string = "----------" + key + "----------" + "\n"
-				Terminal.printCenter(string)
-			if key == "Score":
-				string = "----------" + "Post Data" + "----------" + "\n"
-				Terminal.printCenter(string)
-			if key == "CreationDate":
-				string = "----------" + "Dates" + "----------" + "\n"
-				Terminal.printCenter(string)
+		if key == "Title" or key == "Body" or key == "Tags":
+			string = "----------" + key + "----------" + "\n"
+			Terminal.printCenter(string)
+		if key == "Score":
+			string = "----------" + "Post Data" + "----------" + "\n"
+			Terminal.printCenter(string)
+		if key == "CreationDate":
+			string = "----------" + "Dates" + "----------" + "\n"
+			Terminal.printCenter(string)
 			
 	def printTitle(post):
 		"""
