@@ -70,7 +70,7 @@ class Vote:
 		Returns:
 			A String object representing a unique ID
 		"""
-		results = collection.find({}, {"Id": 1}).sort({"Id":-1}).limit(1)
+		results = collection.find({}, {"Id": 1})).sort({"Id":-1}).limit(1)
 		print(results)
 
 
