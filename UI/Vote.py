@@ -69,7 +69,7 @@ class Vote:
 		Returns:
 			A String object representing a unique ID
 		"""
-		results = collection.aggregate([{"$group": {"maxID" : {"$max" : "Id"}}}])
+		results = collection.aggregate([{"$group": {"_id": "_id", "maxID" : {"$max" : "Id"}}}])
 		print(results)
 
 
