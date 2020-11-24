@@ -33,23 +33,25 @@ class Vote:
 		postID = post['Id']
 		voteTypeID = '2'
 		creationDate = str(datetime.datetime.utcnow().isoformat())
+
+		print(Vote.getUniqueID(votesCollection))
 		
-		if userID:
-			if (not Vote.userVoted(votesCollection, post, userID)):
-				voteID = Vote.getUniqueID(votesCollection)
-				voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'UserId' : userID, 'CreationDate' : creationDate}
-			else:
-				print("You have already voted on this post!")
-				input("Press Enter to Continue: ")
-				return False
-		else:
-			voteID = Vote.getUniqueID(votesCollection)
-			voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'CreationDate' : creationDate}
+		# if userID:
+		# 	if (not Vote.userVoted(votesCollection, post, userID)):
+		# 		voteID = Vote.getUniqueID(votesCollection)
+		# 		voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'UserId' : userID, 'CreationDate' : creationDate}
+		# 	else:
+		# 		print("You have already voted on this post!")
+		# 		input("Press Enter to Continue: ")
+		# 		return False
+		# else:
+		# 	voteID = Vote.getUniqueID(votesCollection)
+		# 	voteDict = {'Id' : voteID, 'PostId' : postID, 'VoteTypeId' : voteTypeID, 'CreationDate' : creationDate}
 		
-		votesCollection.insert_one(voteDict)
-		Vote.updatePostVotes(post, postCollection)
-		print("Vote Successfully added!")
-		input("Press Enter to Continue: ")
+		# votesCollection.insert_one(voteDict)
+		# Vote.updatePostVotes(post, postCollection)
+		# print("Vote Successfully added!")
+		# input("Press Enter to Continue: ")
 		return True
 
 
