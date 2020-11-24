@@ -70,7 +70,7 @@ class Vote:
 		Returns:
 			A String object representing a unique ID
 		"""
-		results = collection.find_one(sort=[("Id", pymongo.ASCENDING)])
+		results = collection.find_one(sort=[("Id", pymongo.DESCENDING)])
 		print(results)
 
 
