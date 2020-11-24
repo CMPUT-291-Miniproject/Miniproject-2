@@ -75,7 +75,8 @@ class Vote:
 					"Id" : pymongo.DESCENDING
 				}
 			}])
-		print(x)
+		for result in x:
+			print(result)
 
 
 	def userVoted(collection, post, userID):
