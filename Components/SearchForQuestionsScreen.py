@@ -307,7 +307,7 @@ class SearchForQuestions:
 			A Dictionary object of dictionaries representing posts that match the search
 			terms
 		"""
-		searchKeys = processSearchKeysForTags(searchKeys)
+		searchKeys = SearchForQuestions.processSearchKeysForTags(searchKeys)
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
