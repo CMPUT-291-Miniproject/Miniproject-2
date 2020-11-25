@@ -272,7 +272,7 @@ class Post:
 		#opens the tags collection
 		client = pymongo.MongoClient()
 		db = client['291db']
-		tags = db['Tags']
+		tags = db.Tags
 		
 		for tag in user_tags:
 			
