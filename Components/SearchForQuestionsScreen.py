@@ -1,5 +1,5 @@
 import pymongo
-from Terminal import Terminal
+from Components.Terminal import Terminal
 import collections
 
 class SearchForQuestionsScreen:

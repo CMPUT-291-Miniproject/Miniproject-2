@@ -1,4 +1,4 @@
-from Terminal import Terminal
+from Components.Terminal import Terminal
 import pymongo
 class WelcomeScreen:
 	"""

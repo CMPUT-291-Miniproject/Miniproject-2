@@ -1,7 +1,7 @@
 import pymongo
 import collections
-from PostPrinter import PostPrinter
-from Terminal import Terminal
+from Components.PostPrinter import PostPrinter
+from Components.Terminal import Terminal
 
 class AnswerListScreen:
 	"""

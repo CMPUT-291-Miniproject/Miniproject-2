@@ -1,5 +1,5 @@
-from Terminal import Terminal
-from Post import Post
+from Components.Terminal import Terminal
+from Components.Post import Post
 
 class PostScreen:
 	"""

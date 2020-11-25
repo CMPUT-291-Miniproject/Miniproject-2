@@ -1,4 +1,4 @@
-from Menu import Menu
+from Components.Menu import Menu
 
 class MainMenuScreen:
 	"""
