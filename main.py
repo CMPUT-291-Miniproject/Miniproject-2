@@ -89,7 +89,7 @@ if __name__ == "__main__":
 								
 								if choice == 1:
 									#user votes for the post
-									Vote.makeVote(post, uid)
+									Vote.makeVote(answer, uid)
 								else:
 									pass
 							
