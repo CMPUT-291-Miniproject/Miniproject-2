@@ -37,36 +37,88 @@ class SearchForQuestionsScreen:
 		return searchTermList
 	
 	def printScreenKeyword():
+		"""
+		calls various methods to inform the user of what they need to do
+		and collect key words from the user for searching 
+
+		Returns:
+			A List of String objects representing search terms
+		"""
 		SearchForQuestionsScreen.printTitleKeyword()
 		searchKeys = SearchForQuestionsScreen.getParsedKeywords()
 		return SearchForQuestions.getQuestions(searchKeys)
 
-	def printTitleMenu():
-		Terminal.printCenter("ENTER ACTUAL TEXT LATER")
-
 	def printScreenMenu(posts):
+		"""
+		Instantiates a SearchQuestionMenu object using posts
+		returns from the search and calls it's method to print
+		the menu
+
+		Parameters:
+			posts:
+				A Dictionary object of dictionary objects representing posts
+				from the database 
+		Returns:
+			A Dictionary object representing the post selected by the user from
+			the menu
+		"""
 		searchQuestionMenu = SearchQuestionMenu(posts)
 		post = searchQuestionMenu.printScreen()
 		return post
 
 	def printScreen():
+		"""
+		Provides the main functionality of SearchForQuestionsScreen
+		by calling various methods
+
+		Returns:
+			A Dictionay object representing the post selected by the user
+		"""
 		posts = SearchForQuestionsScreen.printScreenKeyword()
 		post = SearchForQuestionsScreen.printScreenMenu(posts)
 		return post
 
 class SearchQuestionMenu():
+	"""
+	SearchQuestionMenu is a Menu object
+
+	SearchQuestionMenu displays posts and allows
+	the user to select one of them
+	"""
 	POSTS_PER_PAGE = 100
 
 	def __init__(self, posts):
+		"""
+		Instantiates a SearchQuestionMenu object
+
+		Parameters:
+			posts:
+				A Dictionary object representing various posts from the database
+		Returns:
+			An instance of SearchQuestionMenu
+		"""
 		self.__menuItems__ = []
 		self.fillMenu(posts)
 
 	def fillMenu(self, posts):
+		"""
+		Fills SearchQuestionMenu's List with Named Tuple objects representing posts from the database
+		"""
 		for key in posts:
 			if key is not None:
 				self.__menuItems__.append(SearchForQuestionsScreen.MenuOption(PostID=key, Post=posts[key]))
 
 	def printPost(self, item, index):
+		"""
+		Formats and prints a post
+
+		Parameters:
+			item:
+				A Named Tuple object representing a post from the database
+			index:
+				An Integer object representing the index which the Named Tuple is at
+				in SearchQuestionMenu's List
+		"""
 		stringToPrint = ""
 
 		stringToPrint += str(index+1) + ". "
@@ -78,6 +130,14 @@ class SearchQuestionMenu():
 		print(stringToPrint)
 
 	def printMenu(self, index):
+		"""
+		Prints 100 posts from SearchQuestionMenu's list
+
+		Parameters:
+			index:
+				An Integer used as a pointed to point to the first of the next
+				100 posts to be printed
+		"""
 		if index + SearchQuestionMenu.POSTS_PER_PAGE > len(self.__menuItems__[index:]):
 			for  i,item in enumerate(self.__menuItems__[index:]):
 				self.printPost(item, i)
@@ -86,6 +146,14 @@ class SearchQuestionMenu():
 				self.printPost(self.__menuItems__[i+index], i)
 
 	def printScreen(self):
+		"""
+		Provides the main functionality of SearchQuestionMenu
+		Prints various posts and prompts the user for input
+		checks said input before returning the post selected
+
+		Returns:
+			A Dictionary object representing a post from the database
+		"""
 		continueRunning = True
 		index = 0
 		while continueRunning:
@@ -137,10 +205,29 @@ class SearchQuestionMenu():
 		
 
 class SearchForQuestions:
+	"""
+	SearchForQuestions serves as an interface between SearchForQuestionsScreen
+	and the database
+
+	SearchForQuestions allows SearchForQuestionsScreen to query the database through
+	it's methods
+	"""
 	client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 	db = client[Terminal.getDBName()]
 
 	def getQuestions(searchKeys):
+		"""
+		getQuestions fetches any posts matching the searchKeys
+		by calling various methods
+
+		Parameters:
+			searchKeys:
+				A List of String objects representing search terms entered by
+				the user
+		Returns:
+			A Dictionary object of dictionaries representing posts that match the search
+			terms
+		"""
 		posts = {}
 		posts = SearchForQuestions.getMatchingTitle(searchKeys, posts)
 		posts = SearchForQuestions.getMatchingBody(searchKeys, posts)
@@ -148,6 +235,20 @@ class SearchForQuestions:
 		return posts
 
 	def getMatchingTitle(searchKeys, posts):
+		"""
+		Fetches any posts whose title matches one of the
+		searchTerms
+
+		Parameters:
+			searchKeys:
+				A List of String objects representing search terms entered by
+				the user
+			posts:
+				A Dictionary object of Dictionaries to append any posts
+				retrieved through the query
+		Returns:
+			A Dictionary object of dictionaries representing posts that match the search
+		"""
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
@@ -163,6 +264,20 @@ class SearchForQuestions:
 		return posts
 
 	def getMatchingBody(searchKeys, posts):
+		"""
+		Fetches any posts whose body matches one of the searchTerms
+
+		Parameters:
+			searchKeys:
+				A List of String objects representing search terms entered by
+				the user
+			posts: A Dictionary object of dictionaries representing posts that match the search
+			terms
+
+		Returns:
+			A Dictionary object of dictionaries representing posts that match the search
+			terms
+		"""
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
@@ -178,6 +293,20 @@ class SearchForQuestions:
 		return posts
 
 	def getMatchingTag(searchKeys, posts):
+		"""
+		Fetches any posts whose tags match one of the searchTerms
+
+		Parameters:
+			searchKeys:
+				A List of String objects representing search terms entered by
+				the user
+			posts: A Dictionary object of dictionaries representing posts that match the search
+			terms
+
+		Returns:
+			A Dictionary object of dictionaries representing posts that match the search
+			terms
+		"""
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
