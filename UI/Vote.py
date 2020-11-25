@@ -67,12 +67,60 @@ class Vote:
 		Returns:
 			A String object representing a unique ID
 		"""
+		"""
 		maxId = 0
 		results = collection.find();
 		for result in results:
 			if int(result['Id']) > maxId:
 				maxId = int(result['Id'])
 		return str(maxId + 1)
+		"""
+		def findMaxAndMin(collection):
+			maxNum = 1
+			minNum = 1
+			while  collection.find_one({'Id': str(maxNum)}) is not None:
+				minNum = maxNum
+				maxNum *= 2
+			
+			return [minNum, maxNum]
+			
+		votes = collection
+		nums = findMaxAndMin(votes)
+		minNum = nums[0]
+		maxNum = nums[1]
+		
+		"""TESTING
+		print(minNum, maxNum)
+		print(type(minNum), type(maxNum))
+		print("+++++++++++\n")
+		"""
+
+		while True:
+			num = (minNum + maxNum) // 2
+			
+			search = votes.find_one({'Id': str(num)})
+			
+			try:
+				if int(search["Id"]) >= minNum:
+					minNum = num
+				else:
+					maxNum = num
+			except:
+				maxNum = num
+				
+			"""TESTING
+			print("Min:", minNum)
+			print("Max:", maxNum)
+			print("Middle:", num)
+			"""
+				
+			if minNum == maxNum or minNum+1 == maxNum:
+				num = maxNum
+				
+				break
+				
+		#print("Final:", num)
+		return str(num)
 
 
 	def userVoted(collection, post, userID):
