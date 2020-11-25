@@ -1,13 +1,13 @@
 import pymongo
-from Interface.Terminal import Terminal
-from WelcomeScreen import WelcomeScreen
-from MainMenuScreen import MainMenuScreen
-from PostScreen import PostScreen
-from SearchForQuestionsScreen import SearchForQuestionsScreen
-from SelectedQuestionScreen import SelectedQuestionScreen
-from SelectedAnswerScreen import SelectedAnswerScreen
-from AnswerListScreen import AnswerListScreen
-from Vote import Vote
+from Components.Terminal import Terminal
+from Components.WelcomeScreen import WelcomeScreen
+from Components.MainMenuScreen import MainMenuScreen
+from Components.PostScreen import PostScreen
+from Components.SearchForQuestionsScreen import SearchForQuestionsScreen
+from Components.SelectedQuestionScreen import SelectedQuestionScreen
+from Components.SelectedAnswerScreen import SelectedAnswerScreen
+from Components.AnswerListScreen import AnswerListScreen
+from Components.Vote import Vote
 
 if __name__ == "__main__":
 	

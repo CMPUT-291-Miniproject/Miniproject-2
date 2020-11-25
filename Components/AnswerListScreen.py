@@ -1,6 +1,6 @@
 import pymongo
 import collections
-from Interface.PostPrinter import PostPrinter
+from PostPrinter import PostPrinter
 from Terminal import Terminal
 
 class AnswerListScreen:

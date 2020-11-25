@@ -1,4 +1,4 @@
-from Interface.Terminal import Terminal
+from Terminal import Terminal
 class Menu:
 	"""
 	Menu is a way for the user to interface with the program.

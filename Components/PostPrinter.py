@@ -1,4 +1,4 @@
-from Interface.Terminal import Terminal
+from Terminal import Terminal
 
 class PostPrinter:
 	"""

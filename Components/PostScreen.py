@@ -1,5 +1,5 @@
-from Interface.Terminal import Terminal
-from Interface.Post import Post
+from Terminal import Terminal
+from Post import Post
 
 class PostScreen:
 	"""

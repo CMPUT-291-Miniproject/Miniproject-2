@@ -1,7 +1,7 @@
 import pymongo
 import string
 import datetime
-from Interface.Terminal import Terminal
+from Terminal import Terminal
 
 class Post:
 	

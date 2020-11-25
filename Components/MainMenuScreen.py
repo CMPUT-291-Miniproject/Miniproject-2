@@ -1,4 +1,4 @@
-from Interface.Menu import Menu
+from Menu import Menu
 
 class MainMenuScreen:
 	"""

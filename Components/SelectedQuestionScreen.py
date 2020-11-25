@@ -1,5 +1,5 @@
-from Interface.Terminal import Terminal
-from Interface.PostPrinter import PostPrinter
+from Terminal import Terminal
+from PostPrinter import PostPrinter
 
 class SelectedQuestionScreen:
 	"""
