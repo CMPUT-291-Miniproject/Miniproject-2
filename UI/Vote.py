@@ -97,12 +97,11 @@ class Vote:
 				}
 		return collection.find_one(query) is not None
 
-	def updatePostVotes(post, collection):
+	def updatePostVotes(post, collection): 		
 		updatedScore = post['Score'] + 1
 		updateQuery = { '$inc' : { 'Score' : 1 } }
 		collection.update_one({'Id' : post['Id']}, updateQuery)
-
-		
+	
 if __name__ == "__main__":
 	from SearchForQuestionsScreen import SearchForQuestionsScreen
 	from SelectedQuestionScreen import SelectedQuestionScreen
