@@ -1,11 +1,13 @@
+import pymongo
 from Interface.Terminal import Terminal
 from WelcomeScreen import WelcomeScreen
 from MainMenuScreen import MainMenuScreen
 from PostScreen import PostScreen
 from SearchForQuestionsScreen import SearchForQuestionsScreen
 from SelectedQuestionScreen import SelectedQuestionScreen
-#from SearchforQuestionsScreen import SearchForQuestionsScreen
-from Interface.Vote import Vote
+from SelectedAnswerScreen import SelectedAnswerScreen
+from AnswerListScreen import AnswerListScreen
+from Vote import Vote
 
 if __name__ == "__main__":
 	
@@ -34,17 +36,35 @@ if __name__ == "__main__":
 		
 		#Input loop for command choice.
 		while True:
-			#prints the menue and returns the choice the user makes as an int. error handling and processing takes place in menu.py, so
-			#there's no need to worry about it here
+			#indexing
+			client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
+			db = client["291db"]
+			posts = db["Posts"]
+			tags = db['Tags']
+			votes = db["Votes"]
+			
+			posts.create_index([("Id", 1)])
+			"""
+			posts.create_index([("Title", 1), ("Body", 1), ("Tags", 1)])
+			posts.create_index([("Title", 1)])
+			posts.create_index([("Body", 1)])
+			posts.create_index([("Tags", 1)])
+			"""
+			
+			votes.create_index([("UserId", 1)])
+			votes.create_index([("Id", -1)])
+
+			tags.create_index([("TagName", 1)])
+			tags.create_index([("Id", 1)])
+			
+			
+			#prints the menue and returns the choice the user makes as an int.
 			menu = MainMenuScreen().printScreen()
 			
 			#post question
 			if menu == 0:
-				#TODO: alter posting a question so it takes tags
-				try:
-					PostScreen(uid).printQuestionScreen()
-				except:
-					PostScreen().printQuestionScreen()
+				#Post a question, with or without a uid.
+				PostScreen(uid).printQuestionScreen()
 				
 			#search for posts
 			elif menu == 1:				
@@ -56,15 +76,23 @@ if __name__ == "__main__":
 				choice = SelectedQuestionScreen.printScreen(post)	
 				
 				if choice == 1:
-					#TODO: post answer
+					#Post an answer to the question
 					PostScreen(uid).printAnswerScreen(post["Id"])
-					pass
+					
 				elif choice == 2:
-					#TODO: list answers
-					pass
+					#List all of the answers and offer the user a choice of answers
+					choice = SelectedAnswerScreen.printScreen(AnswerListScreen.printScreen(post))
+					
+					if choice == 1:
+						#user votes for the post
+						Vote.makeVote(post, uid)
+					else:
+						pass
+					
 				elif choice == 3:
-					#TODO: vote for the post
-					pass
+					#User votes for the post
+					Vote.makeVote(post, uid)
+					
 				elif choice == 4:
 					#Exit back to main menue
 					pass
