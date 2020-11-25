@@ -270,7 +270,7 @@ class Post:
 		#TODO:Insert some wizard shit right here to add the tags
 		
 		#opens the tags collection
-		client = pymongo.MongoClient()
+		client = pymongo.MongoClient('localhost', Terminal.getPort())
 		db = client['291db']
 		tags = db.Tags
 		
