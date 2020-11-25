@@ -76,20 +76,22 @@ if __name__ == "__main__":
 					#User choice for options
 					choice = SelectedQuestionScreen.printScreen(post)
 
-					if choice is not None:	
+					if choice is not None:
 						if choice == 1:
 							#Post an answer to the question
 							PostScreen(uid).printAnswerScreen(post["Id"])
 							
 						elif choice == 2:
 							#List all of the answers and offer the user a choice of answers
-							choice = SelectedAnswerScreen.printScreen(AnswerListScreen.printScreen(post))
-							
-							if choice == 1:
-								#user votes for the post
-								Vote.makeVote(post, uid)
-							else:
-								pass
+							answer = AnswerListScreen.printScreen(post)
+							if answer is not None:
+								choice = SelectedAnswerScreen.printScreen(answer)
+								
+								if choice == 1:
+									#user votes for the post
+									Vote.makeVote(post, uid)
+								else:
+									pass
 							
 						elif choice == 3:
 							#User votes for the post
