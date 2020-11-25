@@ -36,25 +36,26 @@ if __name__ == "__main__":
 		
 		#Input loop for command choice.
 		while True:
-			#indexing
+			#indexing. This can take a couple seconds to do, but man is it worth it for the time it saves. 
 			client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 			db = client["291db"]
 			posts = db["Posts"]
 			tags = db['Tags']
 			votes = db["Votes"]
 			
+			#This index is used for generating new post ID's
 			posts.create_index([("Id", 1)])
-			"""
-			posts.create_index([("Title", 1), ("Body", 1), ("Tags", 1)])
-			posts.create_index([("Title", 1)])
-			posts.create_index([("Body", 1)])
-			posts.create_index([("Tags", 1)])
-			"""
 			
+			#This index is used for checking how many votes a user has
 			votes.create_index([("UserId", 1)])
+			
+			#This index is used for generating new vote ID's
 			votes.create_index([("Id", -1)])
-
+			
+			#This index is used for searching for tags
 			tags.create_index([("TagName", 1)])
+			
+			#This index is used for generating new post ID's.
 			tags.create_index([("Id", 1)])
 			
 			

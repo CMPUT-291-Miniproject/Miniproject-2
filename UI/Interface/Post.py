@@ -65,6 +65,7 @@ class Post:
 					"Tags": all_tags, "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
 					
 					posts.insert_one(post)
+					#add the tags or add 1 to the counter for each tag
 					self.__check_tag__(tags)
 					
 				#User gives no tags
@@ -85,6 +86,7 @@ class Post:
 					#print(post)
 					
 					posts.insert_one(post)
+					#add the tags or add 1 to the counter for each tag
 					self.__check_tag__(tags)
 					
 				#Tags are not given
@@ -117,17 +119,19 @@ class Post:
 		Given a pid, returns the title and body of a question.
 		
 		Parameters: 
-			Pid: 4 char string. The post ID of the post to get info from
+			Pid: string. The post ID of the post to get info from
 		
 		Returns:
-			Tuple of title and body of post, both of which are strings.
+			list of title and body of post, both of which are strings.
 		"""
+		#log into db
 		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 
 		db = client['291db']
 
 		posts = db.Posts
 		
+		#grab the post by post ID, this should be really really fast
 		post = posts.find_one({"Id": pid})
 		
 		return [post["Title"], post["Body"]]
@@ -142,7 +146,7 @@ class Post:
 		Returns: 
 			pid: Integer. The unique ID
 		"""
-		
+		#log into db
 		client = pymongo.MongoClient('localhost', int(Terminal.getPort()))
 
 		db = client['291db']
@@ -150,6 +154,15 @@ class Post:
 		posts = db.Posts
 		
 		def findMaxAndMin(collection):
+			"""
+			Generates a min and max starting point for binary search. 
+			
+			Parameters: 
+				Collection: a pymongo collection. The place to find the min and max within the ID's
+				
+			returns:
+				list of ints. It will always return [2^n, 2^n+1] for some n, found by seeing if the current max number is a used ID.
+			"""
 			maxNum = 1
 			minNum = 1
 			while  collection.find_one({'Id': str(maxNum)}) is not None:
@@ -213,6 +226,15 @@ class Post:
 		tags = db.Tags
 		
 		def findMaxAndMin(collection):
+			"""
+			Generates a min and max starting point for binary search. 
+			
+			Parameters: 
+				Collection: a pymongo collection. The place to find the min and max within the ID's
+				
+			returns:
+				list of ints. It will always return [2^n, 2^n+1] for some n, found by seeing if the current max number is a used ID.
+			"""
 			maxNum = 1
 			minNum = 1
 			while  collection.find_one({'Id': str(maxNum)}) is not None:
@@ -270,17 +292,22 @@ class Post:
 		#TODO:Insert some wizard shit right here to add the tags
 		
 		#opens the tags collection
-		client = pymongo.MongoClient()
+		client = pymongo.MongoClient('localhost', Terminal.getPort())
 		db = client['291db']
 		tags = db.Tags
 		
+		#for each tag
 		for tag in user_tags:
 			
+			#see if it exists
 			result = tags.find_one({"TagName": tag})
 			
+			#if it does, update the count on it
 			if result:
 				count = result["Count"]
 				tags.update_one({"TagName": tag}, {'$set':{"Count": count + 1}})
+			
+			#if it doesn't, add it to the db
 			else:
 				
 				tid = self.get_tagID()
