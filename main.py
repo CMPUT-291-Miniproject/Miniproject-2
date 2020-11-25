@@ -83,12 +83,12 @@ if __name__ == "__main__":
 					elif choice == 2:
 						#List all of the answers and offer the user a choice of answers
 						choice = SelectedAnswerScreen.printScreen(AnswerListScreen.printScreen(post))
-						
-						if choice == 1:
-							#user votes for the post
-							Vote.makeVote(post, uid)
-						else:
-							pass
+						if choice is not None:
+							if choice == 1:
+								#user votes for the post
+								Vote.makeVote(post, uid)
+							else:
+								pass
 						
 					elif choice == 3:
 						#User votes for the post
