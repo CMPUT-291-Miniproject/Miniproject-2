@@ -307,6 +307,7 @@ class SearchForQuestions:
 			A Dictionary object of dictionaries representing posts that match the search
 			terms
 		"""
+		searchKeys = processSearchKeysForTags(searchKeys)
 		collection = SearchForQuestions.db["Posts"]
 
 		for keyWord in searchKeys:
@@ -320,6 +321,11 @@ class SearchForQuestions:
 				posts[result['Id']] = result
 
 		return posts
+
+	def processSearchKeysForTags(searchKeys):
+		for i,searchKey in enumerate(searchKeys):
+			searchKeys[i] = searchKey.replace(' ', '-')
+		return searchKeys
 
 
 
