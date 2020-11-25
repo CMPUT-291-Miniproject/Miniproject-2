@@ -1,6 +1,5 @@
 import pymongo
 import string
-import random
 import datetime
 from Interface.Terminal import Terminal
 
@@ -83,7 +82,7 @@ class Post:
 					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()),
 					 "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
 					"Tags": all_tags, "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
-					print(post)
+					#print(post)
 					
 					posts.insert_one(post)
 					self.__check_tag__(tags)
@@ -93,7 +92,7 @@ class Post:
 					post = {"Id": str(pid), "PostTypeId": "1", "CreationDate": str(datetime.datetime.utcnow().isoformat()),
 					 "Score": 0, "ViewCount": 0, "Body": body, "Title": title,
 					 "AnswerCount": 0, "CommentCount": 0, "FavoriteCount": 0, "ContentLicense": "CC BY-SA 4.0"}
-					print(post)
+					#print(post)
 					
 					posts.insert_one(post)
 					
