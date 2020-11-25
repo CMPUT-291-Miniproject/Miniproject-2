@@ -37,7 +37,7 @@ class WelcomeScreen:
 			
 			#if the user presses enter
 			if userInput == "":
-				return 1
+				return -1
 			#if the user enters an id
 			elif userInput.upper() != "EXIT":
 				#TODO: User report		

@@ -23,7 +23,7 @@ if __name__ == "__main__":
 		isUser = welcomeScreen.printScreen()
 		
 		#if the user doesn't enter an id
-		if isUser == 1:
+		if isUser == -1:
 			uid = None
 			pass
 		#if the user enters an id
@@ -71,31 +71,32 @@ if __name__ == "__main__":
 				#TODO: alter searching for questions.
 				sScreen = SearchForQuestionsScreen
 				post = sScreen.printScreen()
-			
-				#User choice for options
-				choice = SelectedQuestionScreen.printScreen(post)	
-				
-				if choice == 1:
-					#Post an answer to the question
-					PostScreen(uid).printAnswerScreen(post["Id"])
-					
-				elif choice == 2:
-					#List all of the answers and offer the user a choice of answers
-					choice = SelectedAnswerScreen.printScreen(AnswerListScreen.printScreen(post))
+
+				if post is not None:
+					#User choice for options
+					choice = SelectedQuestionScreen.printScreen(post)	
 					
 					if choice == 1:
-						#user votes for the post
+						#Post an answer to the question
+						PostScreen(uid).printAnswerScreen(post["Id"])
+						
+					elif choice == 2:
+						#List all of the answers and offer the user a choice of answers
+						choice = SelectedAnswerScreen.printScreen(AnswerListScreen.printScreen(post))
+						
+						if choice == 1:
+							#user votes for the post
+							Vote.makeVote(post, uid)
+						else:
+							pass
+						
+					elif choice == 3:
+						#User votes for the post
 						Vote.makeVote(post, uid)
-					else:
+						
+					elif choice == 4:
+						#Exit back to main menue
 						pass
-					
-				elif choice == 3:
-					#User votes for the post
-					Vote.makeVote(post, uid)
-					
-				elif choice == 4:
-					#Exit back to main menue
-					pass
 
 			#log out of account
 			elif menu == 2:
